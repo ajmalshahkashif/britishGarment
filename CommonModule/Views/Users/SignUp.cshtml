@@ -1,0 +1,58 @@
+﻿@model CommonModule.Models.SignUpViewModel
+
+@{
+    Layout = "~/Views/Shared/_Layout_NoMenu.cshtml";
+}
+
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-6 col-lg-4">
+            <h2 class="text-center mb-4">Sign Up</h2>
+            <form asp-action="SignUp" method="post">
+                <div class="form-group mb-3">
+                    <label asp-for="Username" class="form-label mb-1"></label>
+                    <input asp-for="Username" class="form-control custom-input-height" placeholder="Username" />
+                    <span asp-validation-for="Username" class="text-danger mt-1"></span>
+                </div>
+
+                <div class="form-group mb-3">
+                    <label asp-for="Email" class="form-label mb-1"></label>
+                    <input asp-for="Email" class="form-control custom-input-height" placeholder="Email" />
+                    <span asp-validation-for="Email" class="text-danger mt-1"></span>
+                </div>
+
+                <div class="form-group mb-3">
+                    <label asp-for="FirstName" class="form-label mb-1"></label>
+                    <input asp-for="FirstName" class="form-control custom-input-height" placeholder="First Name" />
+                    <span asp-validation-for="FirstName" class="text-danger mt-1"></span>
+                </div>
+
+                <div class="form-group mb-3">
+                    <label asp-for="LastName" class="form-label mb-1"></label>
+                    <input asp-for="LastName" class="form-control custom-input-height" placeholder="Last Name" />
+                    <span asp-validation-for="LastName" class="text-danger mt-1"></span>
+                </div>
+
+                <div class="form-group mb-3">
+                    <label asp-for="Password" class="form-label mb-1"></label>
+                    <input asp-for="Password" class="form-control custom-input-height" type="password" placeholder="Password" />
+                    <span asp-validation-for="Password" class="text-danger mt-1"></span>
+                </div>
+
+                <div class="form-group mb-3">
+                    <label asp-for="ConfirmPassword" class="form-label mb-1"></label>
+                    <input asp-for="ConfirmPassword" class="form-control custom-input-height" type="password" placeholder="Confirm Password" />
+                    <span asp-validation-for="ConfirmPassword" class="text-danger mt-1"></span>
+                </div>
+
+                <div class="form-group text-center mt-4">
+                    <button type="submit" class="btn btn-primary">Sign Up</button>
+                </div>
+
+                <div class="form-group text-center mt-3">
+                    <p class="mb-0 d-inline">Already have an account? <a href="@Url.Action("Login", "Users")" class="btn btn-link p-0 ms-1">Sign In</a></p>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

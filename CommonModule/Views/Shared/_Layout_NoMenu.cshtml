@@ -1,0 +1,38 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] British Garments</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/CommonModule.styles.css" asp-append-version="true" />
+</head>
+
+<body style="background:#7ab2b2; display: flex; flex-direction: column; min-height: 100vh; margin: 0;">
+    <div class="container d-flex flex-column flex-grow-1">
+        <main role="main" class="flex-grow-1 d-flex align-items-center justify-content-center">
+            @RenderBody()
+
+        </main>
+        <br /><br />
+    </div>
+
+    <footer class="footer py-3 bg-dark text-light">
+        <div class="container text-center">
+            <span class="text-muted">&copy; 2024 - British Garments - <a asp-area="" asp-controller="Home" asp-action="Privacy" class="text-light">Privacy</a></span>
+            <br />
+            <span class="text-muted"><b>Version</b> 1.0.0</span>
+            <br />
+            <span class="text-muted">Copyright &copy; 2014-2019 <a href="https://www.linkedin.com/in/ajmalshahkashif/" class="text-light">Ajmal Shah</a>. All rights reserved.</span>
+        </div>
+    </footer>
+
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+
+</html>
