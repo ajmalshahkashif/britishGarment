@@ -7,4 +7,8 @@
     <RootNamespace>Admin_Module</RootNamespace>
   </PropertyGroup>
 
+  <ItemGroup>
+    <Folder Include="wwwroot\Admin LTE\fontawesome-free\" />
+  </ItemGroup>
+
 </Project>
