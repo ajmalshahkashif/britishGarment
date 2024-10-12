@@ -53,9 +53,10 @@ namespace CommonModule.Controllers
                 if (userRole.Name == "Admin")
                 {
                     // Redirect to the Admin project
-                     return Redirect(""); // Replace with actual admin URL
+                    return Redirect("https://localhost:7127/"); // Replace with actual customer URL
                 }
                 else if (userRole.Name == "Customer")
+                
                 {
                     // Redirect to the Customer project
                     return Redirect("https://localhost:7154/"); // Replace with actual customer URL

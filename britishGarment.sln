@@ -3,11 +3,17 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.10.35122.118
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CommonModule", "CommonModule\CommonModule.csproj", "{BC8F91AE-DE6F-4D51-A084-03805D1ACAAB}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CommonModule", "CommonModule\CommonModule.csproj", "{BC8F91AE-DE6F-4D51-A084-03805D1ACAAB}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Admin Module", "Admin Module\Admin Module.csproj", "{C25FAA7E-A5A2-42AC-B395-17660F6398FA}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Admin Module", "Admin Module\Admin Module.csproj", "{C25FAA7E-A5A2-42AC-B395-17660F6398FA}"
+	ProjectSection(ProjectDependencies) = postProject
+		{BC8F91AE-DE6F-4D51-A084-03805D1ACAAB} = {BC8F91AE-DE6F-4D51-A084-03805D1ACAAB}
+	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Customer Module", "Customer Module\Customer Module.csproj", "{68ABA73D-944F-4C29-8A80-71B2A211DC16}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Customer Module", "Customer Module\Customer Module.csproj", "{68ABA73D-944F-4C29-8A80-71B2A211DC16}"
+	ProjectSection(ProjectDependencies) = postProject
+		{BC8F91AE-DE6F-4D51-A084-03805D1ACAAB} = {BC8F91AE-DE6F-4D51-A084-03805D1ACAAB}
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
