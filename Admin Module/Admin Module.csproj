@@ -11,4 +11,8 @@
     <Folder Include="wwwroot\Admin LTE\fontawesome-free\" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\CommonModule\CommonModule.csproj" />
+  </ItemGroup>
+
 </Project>

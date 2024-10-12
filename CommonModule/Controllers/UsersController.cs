@@ -38,7 +38,7 @@ namespace CommonModule.Controllers
             if (ModelState.IsValid)
             {
                 var user = _context.Users.FirstOrDefault(u => u.Username == model.Username);
-                Role userRole = _context.Roles.FirstOrDefault(r => r.Id == user.RoleId);
+                Role userRole = _context.Roles.FirstOrDefault(r => r.RoleId == user.RoleId);
                 if (user == null || !VerifyPasswordHash(model.Password, user.PasswordHash, user.PasswordSalt))
                 {
                     ModelState.AddModelError("", "Invalid username or password.");
@@ -108,7 +108,7 @@ namespace CommonModule.Controllers
 
                 var roleId = _context.Roles
                         .Where(r => r.Name == "Customer")
-                        .Select(r => r.Id)
+                        .Select(r => r.RoleId)
                         .FirstOrDefault();
 
                 // Generate password reset token (in a real application, use a more secure method)
