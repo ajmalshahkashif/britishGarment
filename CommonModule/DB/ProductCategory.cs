@@ -3,9 +3,9 @@ using System.Collections.Generic;
 
 namespace CommonModule.DB;
 
-public partial class Role
+public partial class ProductCategory
 {
-    public int RoleId { get; set; }
+    public int CategoryId { get; set; }
 
     public string Name { get; set; } = null!;
 
@@ -13,5 +13,5 @@ public partial class Role
 
     public bool? IsActive { get; set; }
 
-    public virtual ICollection<User> Users { get; set; } = new List<User>();
+    public virtual ICollection<Product> Products { get; set; } = new List<Product>();
 }
