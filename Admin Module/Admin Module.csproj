@@ -1,18 +1,27 @@
 <Project Sdk="Microsoft.NET.Sdk.Web">
 
-  <PropertyGroup>
-    <TargetFramework>net8.0</TargetFramework>
-    <Nullable>enable</Nullable>
-    <ImplicitUsings>enable</ImplicitUsings>
-    <RootNamespace>Admin_Module</RootNamespace>
-  </PropertyGroup>
+	<PropertyGroup>
+		<TargetFramework>net8.0</TargetFramework>
+		<Nullable>enable</Nullable>
+		<ImplicitUsings>enable</ImplicitUsings>
+		<RootNamespace>Admin_Module</RootNamespace>
+	</PropertyGroup>
 
-  <ItemGroup>
-    <Folder Include="wwwroot\Admin LTE\fontawesome-free\" />
-  </ItemGroup>
+	<ItemGroup>
+		<Folder Include="wwwroot\Admin LTE\fontawesome-free\" />
+	</ItemGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\CommonModule\CommonModule.csproj" />
-  </ItemGroup>
+	<ItemGroup>
+	  <None Include="wwwroot\Admin LTE\css\toastr.min.css" />
+	  <None Include="wwwroot\Admin LTE\js\toastr.min.js" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="8.0.6" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<ProjectReference Include="..\CommonModule\CommonModule.csproj" />
+	</ItemGroup>
 
 </Project>

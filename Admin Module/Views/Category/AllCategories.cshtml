@@ -1,5 +1,94 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
+﻿    @model IEnumerable<CommonModule.DB.ProductCategory>
+    @using CommonModule.DB
+
 @{
+    ViewBag.Title = "All Categories";
+    Layout = "~/Views/Shared/_Layout.cshtml";
 }
+
+<div class="container mt-4">
+    @Html.Partial("_SuccessMessage")
+
+    <h2>All Categories</h2>
+
+    <table class="table table-striped table-bordered">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Description</th>
+                <th>Status</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var category in Model)
+            {
+                <tr>
+                    <td>@category.Name</td>
+                    <td>@category.Description</td>
+                    <td>@(category.IsActive ? "Active" : "Inactive")</td>
+                    <td>
+                        <a href="@Url.Action("EditCategory", "Category", new { id = category.CategoryId })" class="btn btn-info btn-sm">Edit</a>
+                        <button type="button" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#modal-danger" data-id="@category.CategoryId">
+                            Delete
+                        </button>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+    <!-- Pagination -->
+    <nav aria-label="Page navigation example">
+        <ul class="pagination justify-content-center">
+            <!-- Previous Page Link -->
+            <li class="page-item @(ViewBag.CurrentPage == 1 ? "disabled" : "")">
+                <a class="page-link" href="@Url.Action("AllCategories", new { page = ViewBag.CurrentPage - 1 })" tabindex="-1">Previous</a>
+            </li>
+
+            @for (int i = 1; i <= Math.Ceiling((double)ViewBag.TotalCategories / ViewBag.PageSize); i++)
+            {
+                <li class="page-item @(ViewBag.CurrentPage == i ? "active" : "")">
+                    <a class="page-link" href="@Url.Action("AllCategories", new { page = i })">@i</a>
+                </li>
+            }
+
+            <!-- Next Page Link -->
+            <li class="page-item @(ViewBag.CurrentPage == Math.Ceiling((double)ViewBag.TotalCategories / ViewBag.PageSize) ? "disabled" : "")">
+                <a class="page-link" href="@Url.Action("AllCategories", new { page = ViewBag.CurrentPage + 1 })">Next</a>
+            </li>
+        </ul>
+    </nav>
+
+    <!-- Modal for Delete Confirmation -->
+    <div class="modal fade" id="modal-danger">
+        <div class="modal-dialog">
+            <div class="modal-content bg-danger">
+                <div class="modal-header">
+                    <h4 class="modal-title">Confirm Deletion</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <p>Are you sure you want to delete this category?</p>
+                </div>
+                <div class="modal-footer justify-content-between">
+                    <button type="button" class="btn btn-outline-light" data-dismiss="modal">Cancel</button>
+                    <a id="confirmDeleteBtn" href="#" class="btn btn-outline-light">Delete</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(document).ready(function () {
+        $('#modal-danger').on('show.bs.modal', function (event) {
+            var button = $(event.relatedTarget);
+            var categoryId = button.data('id');
+            var modal = $(this);
+            modal.find('#confirmDeleteBtn').attr('href', '/Category/DeleteCategory/' + categoryId);
+        });
+    });
+</script>
