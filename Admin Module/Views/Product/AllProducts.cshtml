@@ -28,9 +28,17 @@
                     <td>@product.Description</td>
                     <td>@(product.IsActive ? "Active" : "Inactive")</td>
                     <td>
-                        <a href="@Url.Action("EditProduct", "Product", new { id = product.ProductId })" class="btn btn-info btn-sm">Edit</a>
+                        <a href="@Url.Action("ViewProduct", "Product", new { id = product.ProductId })" class="btn btn-info btn-sm">
+                            <i class="fas fa-folder">
+                            </i> View
+                        </a>
+                        <a href="@Url.Action("EditProduct", "Product", new { id = product.ProductId })" class="btn btn-info btn-sm">
+                            <i class="fas fa-pencil-alt">
+                            </i> Edit
+                        </a>
                         <button type="button" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#modal-danger" data-id="@product.ProductId">
-                            Delete
+                            <i class="fas fa-trash">
+                            </i> Delete
                         </button>
                     </td>
                 </tr>

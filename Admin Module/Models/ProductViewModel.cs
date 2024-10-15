@@ -24,5 +24,7 @@ namespace Admin_Module.Models
         [Display(Name = "Item Type")]
         [Required(ErrorMessage = "provide Item Type")]
         public int ProductCategoryId{ get; set; }
+
+        public string ProductCategoryName { get; set; } // Add this property for category name
     }
 }

@@ -133,5 +133,29 @@ namespace Admin_Module.Controllers
             return View(product);
         }
 
+        public IActionResult ViewProduct(int id)
+        {
+            // Join Products with ProductCategories to get the category name
+            var product = _context.Products
+                .Where(p => p.ProductId == id)
+                .Select(p => new ProductViewModel
+                {
+                    Name = p.Name,
+                    Description = p.Description,
+                    isActive = p.IsActive,
+                    ProductCategoryId = p.CategoryId, // Set the category ID
+                    ProductCategoryName = p.Category.Name, // Get the category name
+                    Price = p.Price
+                })
+                .FirstOrDefault();
+
+            if (product == null)
+            {
+                return NotFound();
+            }
+
+            return View(product);
+        }
+
     }
 }
