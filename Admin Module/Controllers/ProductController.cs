@@ -16,13 +16,17 @@ namespace Admin_Module.Controllers
         public IActionResult AddProduct()
         {
             var productCategories = _context.ProductCategories
-                .Select(x => new { x.CategoryId, x.Name })
+                .Select(x => new SelectListItem
+                {
+                    Value = x.CategoryId.ToString(),
+                    Text = x.Name
+                })
                 .ToList();
 
-            // Use CategoryId instead of Id in SelectList
-            ViewBag.productCategories = new SelectList(productCategories, "CategoryId", "Name");
+            ViewBag.productCategories = new SelectList(productCategories, "Value", "Text");
             return View();
         }
+
 
 
         [HttpPost]
