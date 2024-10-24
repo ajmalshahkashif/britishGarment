@@ -15,9 +15,19 @@ public partial class GarmentContext : DbContext
     {
     }
 
+    public virtual DbSet<Color> Colors { get; set; }
+
+    public virtual DbSet<Discount> Discounts { get; set; }
+
     public virtual DbSet<Product> Products { get; set; }
 
     public virtual DbSet<ProductCategory> ProductCategories { get; set; }
+
+    public virtual DbSet<ProductColor> ProductColors { get; set; }
+
+    public virtual DbSet<ProductImage> ProductImages { get; set; }
+
+    public virtual DbSet<ProductSize> ProductSizes { get; set; }
 
     public virtual DbSet<Purchase> Purchases { get; set; }
 
@@ -29,7 +39,7 @@ public partial class GarmentContext : DbContext
 
     public virtual DbSet<SaleDetail> SaleDetails { get; set; }
 
-    public virtual DbSet<Stock> Stocks { get; set; }
+    public virtual DbSet<Size> Sizes { get; set; }
 
     public virtual DbSet<User> Users { get; set; }
 
@@ -39,13 +49,34 @@ public partial class GarmentContext : DbContext
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
+        modelBuilder.Entity<Color>(entity =>
+        {
+            entity.Property(e => e.Description).HasMaxLength(500);
+            entity.Property(e => e.Name).HasMaxLength(100);
+            entity.Property(e => e.RgbColor)
+                .HasMaxLength(500)
+                .HasColumnName("RGB Color");
+        });
+
+        modelBuilder.Entity<Discount>(entity =>
+        {
+            entity.ToTable("Discount");
+
+            entity.Property(e => e.Description).HasMaxLength(500);
+            entity.Property(e => e.DiscountAmount).HasColumnName("Discount Amount");
+            entity.Property(e => e.Name).HasMaxLength(100);
+        });
+
         modelBuilder.Entity<Product>(entity =>
         {
             entity.HasKey(e => e.ProductId).HasName("PK__Products__B40CC6ED8A743232");
 
             entity.Property(e => e.ProductId).HasColumnName("ProductID");
             entity.Property(e => e.CreatedAt).HasDefaultValueSql("(getdate())");
-            entity.Property(e => e.Description).HasMaxLength(500);
+            entity.Property(e => e.Description).HasMaxLength(1000);
+            entity.Property(e => e.Gender)
+                .HasMaxLength(100)
+                .IsUnicode(false);
             entity.Property(e => e.Name).HasMaxLength(100);
             entity.Property(e => e.Price).HasColumnType("decimal(18, 2)");
 
@@ -68,9 +99,52 @@ public partial class GarmentContext : DbContext
             entity.Property(e => e.Name).HasMaxLength(100);
         });
 
+        modelBuilder.Entity<ProductColor>(entity =>
+        {
+            entity.HasKey(e => new { e.ProductId, e.ColorId }).HasName("PK_ProductColor_1");
+
+            entity.ToTable("ProductColor");
+
+            entity.Property(e => e.Description).HasMaxLength(500);
+
+            entity.HasOne(d => d.Product).WithMany(p => p.ProductColors)
+                .HasForeignKey(d => d.ProductId)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK_ProductColor_Products");
+        });
+
+        modelBuilder.Entity<ProductImage>(entity =>
+        {
+            entity.ToTable("ProductImage");
+
+            entity.HasOne(d => d.Product).WithMany(p => p.ProductImages)
+                .HasForeignKey(d => d.ProductId)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK_ProductImage_ProductImage");
+        });
+
+        modelBuilder.Entity<ProductSize>(entity =>
+        {
+            entity.HasKey(e => new { e.SizeId, e.ProductId }).HasName("PK_ProductSize_1");
+
+            entity.ToTable("ProductSize");
+
+            entity.Property(e => e.Description).HasMaxLength(500);
+
+            entity.HasOne(d => d.Product).WithMany(p => p.ProductSizes)
+                .HasForeignKey(d => d.ProductId)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK_ProductSize_Products");
+
+            entity.HasOne(d => d.Size).WithMany(p => p.ProductSizes)
+                .HasForeignKey(d => d.SizeId)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK_ProductSize_SizeIs");
+        });
+
         modelBuilder.Entity<Purchase>(entity =>
         {
-            entity.HasKey(e => e.PurchaseId).HasName("PK__Purchase__6B0A6BBEC88D0E1A");
+            entity.HasKey(e => e.PurchaseId).HasName("PK__Purchase__6B0A6BBE4C86DEF8");
 
             entity.Property(e => e.PurchaseDate)
                 .HasDefaultValueSql("(getdate())")
@@ -80,12 +154,12 @@ public partial class GarmentContext : DbContext
             entity.HasOne(d => d.Vendor).WithMany(p => p.Purchases)
                 .HasForeignKey(d => d.VendorId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK__Purchases__Vendo__03F0984C");
+                .HasConstraintName("FK__Purchases__Vendo__7E02B4CC");
         });
 
         modelBuilder.Entity<PurchaseDetail>(entity =>
         {
-            entity.HasKey(e => e.PurchaseDetailId).HasName("PK__Purchase__88C328B5B302ACA6");
+            entity.HasKey(e => e.PurchaseDetailId).HasName("PK__Purchase__88C328B535183BF2");
 
             entity.Property(e => e.ProductId).HasColumnName("ProductID");
             entity.Property(e => e.UnitPrice).HasColumnType("decimal(18, 2)");
@@ -98,7 +172,7 @@ public partial class GarmentContext : DbContext
             entity.HasOne(d => d.Purchase).WithMany(p => p.PurchaseDetails)
                 .HasForeignKey(d => d.PurchaseId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK__PurchaseD__Purch__07C12930");
+                .HasConstraintName("FK__PurchaseD__Purch__7D0E9093");
         });
 
         modelBuilder.Entity<Role>(entity =>
@@ -112,7 +186,7 @@ public partial class GarmentContext : DbContext
 
         modelBuilder.Entity<Sale>(entity =>
         {
-            entity.HasKey(e => e.SaleId).HasName("PK__Sales__1EE3C41F54EB41FF");
+            entity.HasKey(e => e.SaleId).HasName("PK__Sales__1EE3C41F6449238D");
 
             entity.Property(e => e.SaleId).HasColumnName("SaleID");
             entity.Property(e => e.CreatedAt).HasDefaultValueSql("(getdate())");
@@ -123,7 +197,7 @@ public partial class GarmentContext : DbContext
 
         modelBuilder.Entity<SaleDetail>(entity =>
         {
-            entity.HasKey(e => e.SaleDetailId).HasName("PK__SaleDeta__70DB141E015A4B10");
+            entity.HasKey(e => e.SaleDetailId).HasName("PK__SaleDeta__70DB141E8A80EE98");
 
             entity.Property(e => e.SaleDetailId).HasColumnName("SaleDetailID");
             entity.Property(e => e.ProductId).HasColumnName("ProductID");
@@ -141,27 +215,15 @@ public partial class GarmentContext : DbContext
             entity.HasOne(d => d.Sale).WithMany(p => p.SaleDetails)
                 .HasForeignKey(d => d.SaleId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK__SaleDetai__SaleI__7A672E12");
+                .HasConstraintName("FK__SaleDetai__SaleI__7FEAFD3E");
         });
 
-        modelBuilder.Entity<Stock>(entity =>
+        modelBuilder.Entity<Size>(entity =>
         {
-            entity.HasKey(e => e.StockId).HasName("PK__Stock__2C83A9E2EEC1DA02");
+            entity.HasKey(e => e.Id).HasName("PK_SizeIs");
 
-            entity.ToTable("Stock");
-
-            entity.Property(e => e.StockId).HasColumnName("StockID");
-            entity.Property(e => e.CreatedAt).HasDefaultValueSql("(getdate())");
-            entity.Property(e => e.ProductId).HasColumnName("ProductID");
-
-            entity.HasOne(d => d.Product).WithMany(p => p.Stocks)
-                .HasForeignKey(d => d.ProductId)
-                .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK__Stock__ProductID__7E37BEF6");
-
-            entity.HasOne(d => d.UpdatedByNavigation).WithMany(p => p.Stocks)
-                .HasForeignKey(d => d.UpdatedBy)
-                .HasConstraintName("FK__Stock__UpdatedBy__00200768");
+            entity.Property(e => e.Description).HasMaxLength(500);
+            entity.Property(e => e.Name).HasMaxLength(100);
         });
 
         modelBuilder.Entity<User>(entity =>

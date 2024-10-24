@@ -4,16 +4,25 @@
 @{
     ViewBag.Title = "All Categories";
     Layout = "~/Views/Shared/_Layout.cshtml";
+
+    int serialNo = (ViewBag.CurrentPage - 1) * ViewBag.PageSize + 1; // Calculate the serial number for pagination
 }
 
 <div class="container mt-4">
     @Html.Partial("_SuccessMessage")
+    @if (TempData["ErrorMessage"] != null)
 
+    {
+        <div class="alert alert-danger" role="alert">
+            @TempData["ErrorMessage"]
+        </div>
+    }
     <h2>All Categories</h2>
 
     <table class="table table-striped table-bordered">
         <thead>
             <tr>
+                <th>S.No</th> <!-- Serial Number Column -->
                 <th>Name</th>
                 <th>Description</th>
                 <th>Status</th>
@@ -24,16 +33,28 @@
             @foreach (var category in Model)
             {
                 <tr>
+                    <td>@serialNo</td> <!-- Display serial number -->
                     <td>@category.Name</td>
                     <td>@category.Description</td>
                     <td>@(category.IsActive ? "Active" : "Inactive")</td>
                     <td>
-                        <a href="@Url.Action("EditCategory", "Category", new { id = category.CategoryId })" class="btn btn-info btn-sm">Edit</a>
+                        <a href="@Url.Action("ViewCategory", "Category", new { id = category.CategoryId })" class="btn btn-info btn-sm">
+                            <i class="fas fa-folder">
+                            </i> View
+                        </a>
+                        <a href="@Url.Action("EditCategory", "Category", new { id = category.CategoryId })" class="btn btn-info btn-sm">
+                            <i class="fas fa-pencil-alt">
+                            </i> Edit
+                        </a>
                         <button type="button" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#modal-danger" data-id="@category.CategoryId">
-                            Delete
+                            <i class="fas fa-trash">
+                            </i> Delete
                         </button>
+
                     </td>
                 </tr>
+                serialNo++;
+                <!-- Increment the serial number -->
             }
         </tbody>
     </table>

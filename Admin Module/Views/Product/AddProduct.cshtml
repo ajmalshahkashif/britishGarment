@@ -1,130 +1,26 @@
 ﻿@model Admin_Module.Models.ProductViewModel
 @{
     ViewBag.Title = "Add Product";
+
+
+
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-<style>
-    * {
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
-    font-family: Arial, sans-serif;
-}
 
-body {
-    background-color: #f9f9f9;
-    padding: 20px;
-}
+@using (Html.BeginForm("AddProduct", "Product", FormMethod.Post, new { enctype = "multipart/form-data" }))
 
-.container {
-    max-width: 800px;
-    margin: 0 auto;
-    background-color: #fff;
-    padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-}
 
-.image-section {
-    margin-bottom: 20px;
-}
 
-.image-section label {
-    font-weight: bold;
-    margin-bottom: 10px;
-    display: block;
-}
-
-.image-upload {
-    display: flex;
-    gap: 10px;
-}
-
-.image-upload img {
-    width: 100px;
-    height: 100px;
-    border-radius: 5px;
-    object-fit: cover;
-}
-
-.add-image {
-    width: 100px;
-    height: 100px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background-color: #eaeaea;
-    border-radius: 5px;
-    font-size: 24px;
-    cursor: pointer;
-}
-
-.weight-section, .dimensions-section, .size-section {
-    margin-bottom: 20px;
-}
-
-label {
-    font-weight: bold;
-    margin-bottom: 5px;
-    display: block;
-}
-
-input[type="text"], select {
-    width: 100%;
-    padding: 8px;
-    margin-top: 5px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-}
-
-input[type="radio"] {
-    margin-right: 5px;
-}
-
-.size-section .sizes {
-    display: flex;
-    gap: 10px;
-    margin-top: 5px;
-}
-
-.size-btn {
-    padding: 10px 15px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    cursor: pointer;
-}
-
-.size-btn.selected {
-    background-color: #76e59a;
-    border-color: #76e59a;
-    color: #fff;
-}
-
-.pricing-stock-section {
-    margin-top: 20px;
-}
-
-.pricing-stock-section h3 {
-    margin-bottom: 15px;
-}
-
-.pricing, .discount, .gender-section, .discount-type-section {
-    margin-bottom: 15px;
-}
-
-.discount-type-section select {
-    width: 100%;
-}
-
-</style>
-
-@using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
 
-    @* @Html.Partial("_SuccessMessage")
- *@
+    @if (TempData["SuccessMessage"] != null)
 
+    {
+        <div class="alert alert-success" role="alert">
+            @TempData["SuccessMessage"]
+        </div>
+    }
     <div class="content-header">
         <div class="container-fluid">
             <div class="row mb-2">
@@ -145,160 +41,239 @@ input[type="radio"] {
         <div class="col-12">
             @Html.ValidationSummary(true, "", new { @class = "text-danger" })
 
+
             <div class="mb-3 row">
-                <div class="col-md-2">
+                <!-- First Row (Name,Category) -->
+                <div class="col-md-1">
                     @Html.LabelFor(model => model.Name, htmlAttributes: new { @class = "col-form-label" })
                     <span class="text-danger ml-1">*</span>
                 </div>
-                <div class="col-md-6">
-                    @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control" } })
+                <div class="col-md-3">
+                    @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control", placeholder = "Enter Product Name" } })
                     @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
                 </div>
-            </div>
-
-
-
-
-            <div class="mb-3 row">
-                @Html.LabelFor(model => model.ProductCategoryId, htmlAttributes: new { @class = "col-md-2 col-form-label" })
-                <div class="col-md-6">
-                    @Html.DropDownListFor(model => model.ProductCategoryId, (IEnumerable<SelectListItem>)ViewBag.productCategories, new { @class = "form-control" })
-
+                <div class="col-md-2"></div>
+                <!-- Second Label and Input (Product Category) -->
+                <div class="col-md-1">
+                    @Html.LabelFor(model => model.ProductCategoryId, htmlAttributes: new { @class = "col-form-label" })
+                </div>
+                <div class="col-md-3">
+                    @Html.DropDownListFor(model => model.ProductCategoryId, (SelectList)ViewBag.productCategories, new { @class = "form-control" })
                     @Html.ValidationMessageFor(model => model.ProductCategoryId, "", new { @class = "text-danger" })
                 </div>
             </div>
 
-
-
-
-
+            <!-- Second Row (Price,Weight) -->
             <div class="mb-3 row">
-                <div class="col-md-2">
+                <div class="col-md-1">
                     @Html.LabelFor(model => model.Price, htmlAttributes: new { @class = "col-form-label" })
                     <span class="text-danger ml-1">*</span>
                 </div>
-                <div class="col-md-6">
-                    @Html.TextBoxFor(model => model.Price, new { @class = "form-control", type = "number", min = "0", onkeydown = "return event.keyCode !== 190 && event.keyCode !== 110" })
+                <div class="col-md-3">
+                    @Html.TextBoxFor(model => model.Price, new { @class = "form-control", placeholder = "Base Price", type = "number", min = "0", onkeydown = "return event.keyCode !== 190 && event.keyCode !== 110" })
                     @Html.ValidationMessageFor(model => model.Price, "", new { @class = "text-danger" })
                 </div>
-            </div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-            <div class="mb-3 row">
-                @Html.LabelFor(model => model.Description, htmlAttributes: new { @class = "col-md-2 col-form-label" })
-                <div class="col-md-6">
-                    @Html.TextAreaFor(model => model.Description, new { @class = "form-control", rows = 5, cols = 50 })
-                    @Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })
+                <div class="col-md-2"></div>
+                <div class="col-md-1">
+                    <label class="col-form-label">Weight(kg)</label>
+                </div>
+                <div class="col-md-3">
+                    @Html.TextBoxFor(model => model.Weight, new { @class = "form-control", type = "number", placeholder = "Weight (kg)" })
                 </div>
             </div>
 
-
-
-
+            <!-- Third Row (DiscountType,Discount) -->
             <div class="mb-3 row">
-                @Html.LabelFor(model => model.isActive, htmlAttributes: new { @class = "col-md-2 col-form-label" })
-                <div class="col-md-6">
+                <div class="col-md-1">
+
+                    <label class="col-form-label">Discount %</label>
+                </div>
+                <div class="col-md-3">
+                    @Html.TextBoxFor(model => model.Discount, new { @class = "form-control", type = "number", placeholder = "Discount % " })
+                </div>
+                @* <label class="col-md-1 col-form-label">Discount Type</label>
+            <div class="col-md-3">
+            @Html.DropDownListFor(model => model.ProductDiscountId, (SelectList)ViewBag.productDiscountType, new { @class = "form-control" })
+            @Html.ValidationMessageFor(model => model.ProductDiscountId, "", new { @class = "text-danger" })
+            </div> *@
+                <div class="col-md-2"></div>
+                <div class="col-md-4"></div>
+            </div>
+
+            <!-- 4th Row (Dimensions,InStock)-->
+            <div class="mb-3 row">
+                <label class="col-md-1 col-form-label">Dimensions</label>
+                <div class="col-md-3 d-flex">
+                    @Html.TextBoxFor(model => model.Length, new { @class = "form-control", type = "number", placeholder = "Length(cm)" })
+                    @Html.TextBoxFor(model => model.Height, new { @class = "form-control", type = "number", placeholder = "Height(cm)" })
+                </div>
+                <div class="col-md-2"></div>
+                <label class="col-md-1 col-form-label">InStock</label>
+                <div class="col-md-3">
+                    @Html.TextBoxFor(model => model.InStock, new { @class = "form-control", type = "number", placeholder = "InStock" })
+                </div>
+            </div>
+
+            <!-- 5th Row Size Selection and Active Checkbox -->
+            <div class="row mb-3">
+                <!-- Hidden field to store selected size IDs -->
+                <input type="hidden" id="selectedSizeIds" name="selectedSizes" />
+                <label class="col-md-1 col-form-label">Size</label>
+                <div class="col-md-3 d-flex">
+                    @foreach (var size in ViewBag.productSizes)
+                    {
+                        <button type="button" class="btn btn-outline-success size-select mx-1"
+                                data-size-id="@size.Id" style="color: Black;">
+                            @size.Name
+                        </button>
+                    }
+                </div>
+                <div class="col-md-2"></div>
+                <!-- Checkbox Section -->
+                <label class="col-md-1 col-form-label">Active</label>
+                <div class="col-md-3">
                     @Html.CheckBoxFor(model => model.isActive, new { htmlAttributes = new { @class = "form-check-input" } })
                     @Html.ValidationMessageFor(model => model.isActive, "", new { @class = "text-danger" })
                 </div>
             </div>
 
+            <!-- 6th Row (Description,Gender) -->
+            <div class="mb-3 row">
+                @Html.LabelFor(model => model.Description, htmlAttributes: new { @class = "col-md-1 col-form-label" })
+                <div class="col-md-3">
+                    @Html.TextAreaFor(model => model.Description, new { @class = "form-control", rows = 5, cols = 50 })
+                    @Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })
+                </div>
+                <div class="col-md-2"></div>
+                <div class="col-md-1">
+                    @Html.Label("Gender")
+                </div>
+                <div class="col-md-3">
+                    <div class="form-check">
+                        <input type="radio" name="Gender" value="Men" class="form-check-input" /> Men
+                    </div>
+                    <div class="form-check">
+                        <input type="radio" name="Gender" value="Women" class="form-check-input" /> Women
+                    </div>
+                    <div class="form-check">
+                        <input type="radio" name="Gender" value="Children" class="form-check-input" /> Children
+                    </div>
+                </div>
+            </div>
+
+            <!-- Seven Row Selection Colors -->
+            <div class="mb-3 row">
+                <input type="hidden" id="selectedColorIds" name="selectedColors" />
+                <label class="col-md-1 col-form-label">Choose Colors</label>
+                <div class="col-md-10 d-flex flex-wrap">
+                    @foreach (var color in ViewBag.productColors)
+                    {// Check if the color is white
+                        @*  var isWhite = @color.Name == "White"; *@
+                        <button type="button" class="btn btn-outline-success color-select mx-1 mb-1"
+                                data-color-id="@color.Id" style="color: Black;"
+                        @* style="background-color: @color.RgbColor; color: @(isWhite ? "black" : "white");" *@>
+                            @color.Name
+                        </button>
+                    }
+                </div>
+            </div>
+
+            <!-- 8th Row Multiple Images selection -->
+            <div class="mb-3 row">
+                <label class="col-md-1 col-form-label">Multiple Images</label>
+                <div class="col-md-3">
+                    <input type="file" name="ProductImages" id="ProductImages" multiple accept="image/*" class="form-control" onchange="previewImages()" />
+                </div><div class="col-md-2"></div>
+                <div class="col-md-1"></div>
+                <div class="col-md-3"></div>
+            </div>
+
+            <!-- 9th Row -->
+            <div class="mb-3 row">
+                <div class="col-md-1"></div>
+                <div class="col-md-9" id="imagePreviewContainer" style="display:flex; flex-wrap:wrap; gap:10px;">
+                    <!-- Image previews will be shown here -->
+                </div>
+            </div>
+
+            <!-- 10th Row -->
             <div class="row">
-                <div class="offset-md-2 col-md-10">
+                <div class="offset-md-1 col-md-10">
                     <input type="submit" value="Create" class="btn btn-primary" />
                 </div>
             </div>
         </div>
-
-
-        <div class="container">
-            <!-- Image Section -->
-            <div class="image-section">
-                <label>Image</label>
-                <div class="image-upload">
-                    <img src="image1.png" alt="Image 1">
-                    <img src="image2.png" alt="Image 2">
-                    <img src="image3.png" alt="Image 3">
-                    <div class="add-image">+</div>
-                </div>
-            </div>
-
-            <!-- Weight Input -->
-            <div class="weight-section">
-                <label for="weight">Weight</label>
-                <input type="text" id="weight" name="weight" placeholder="Enter weight">
-            </div>
-
-            <!-- Dimensions Input -->
-            <div class="dimensions-section">
-                <label for="dimensions">Dimensions</label>
-                <input type="text" id="dimension-width" placeholder="Width">
-                <input type="text" id="dimension-height" placeholder="Height">
-            </div>
-
-            <!-- Size Selection -->
-            <div class="size-section">
-                <label>Size</label>
-                <div class="sizes">
-                    <button class="size-btn">XS</button>
-                    <button class="size-btn selected">S</button>
-                    <button class="size-btn">M</button>
-                    <button class="size-btn">XL</button>
-                    <button class="size-btn">XXL</button>
-                </div>
-            </div>
-
-            <!-- Pricing and Stock -->
-            <div class="pricing-stock-section">
-                <h3>Pricing and Stock</h3>
-
-                <div class="pricing">
-                    <label for="base-price">Base Pricing</label>
-                    <input type="text" id="base-price" value="$47.55">
-                </div>
-
-                <div class="discount">
-                    <label for="discount">Discount</label>
-                    <input type="text" id="discount" value="10%">
-                </div>
-
-                <!-- Gender Selection -->
-                <div class="gender-section">
-                    <label>Gender</label>
-                    <input type="radio" name="gender" id="men" value="Men"> Men
-                    <input type="radio" name="gender" id="woman" value="Woman" checked> Woman
-                    <input type="radio" name="gender" id="unisex" value="Unisex"> Unisex
-                </div>
-
-                <!-- Discount Type -->
-                <div class="discount-type-section">
-                    <label for="discount-type">Discount Type</label>
-                    <select id="discount-type">
-                        <option value="cny-discount">Chinese New Year Discount</option>
-                        <!-- Add more options here if necessary -->
-                    </select>
-                </div>
-            </div>
-        </div>
     </div>
-
-
 }
 
 <div>
     @Html.ActionLink("Back to List", "AllProducts", new { @class = "btn btn-link" })
 </div>
+<script>
+    function previewImages() {
+        var previewContainer = document.getElementById('imagePreviewContainer');
+        previewContainer.innerHTML = ""; // Clear existing previews
+        var files = document.getElementById('ProductImages').files;
+
+        if (files.length > 0) {
+            for (var i = 0; i < files.length; i++) {
+                var file = files[i];
+                var reader = new FileReader();
+
+                reader.onload = function (e) {
+                    var img = document.createElement("img");
+                    img.src = e.target.result;
+                    img.style.width = "100px";
+                    img.style.height = "auto";
+                    img.style.margin = "5px";
+                    previewContainer.appendChild(img);
+                }
+
+                reader.readAsDataURL(file);
+            }
+        }
+    }
+
+    $(document).ready(function () {
+        var selectedSizes = [];
+        var selectedColors = [];
+
+        // Handle size selection
+        $('.size-select').click(function () {
+            var sizeId = $(this).data('size-id');
+
+            // Toggle selection
+            if (selectedSizes.includes(sizeId)) {
+                selectedSizes = selectedSizes.filter(id => id !== sizeId);
+                $(this).css('background-color', ''); // Reset background color
+                $(this).css('color', 'Black'); // Reset text color
+            } else {
+                selectedSizes.push(sizeId);
+                $(this).css('background-color', 'green'); // Set background color for selected button
+                $(this).css('color', 'white'); // Change text color for better contrast
+            }
+
+            $('#selectedSizeIds').val(selectedSizes.join(','));
+        });
+
+        // Handle color selection
+        $('.color-select').click(function () {
+            var colorId = $(this).data('color-id');
+
+            // Toggle selection
+            if (selectedColors.includes(colorId)) {
+                selectedColors = selectedColors.filter(id => id !== colorId);
+                $(this).css('background-color', ''); // Reset background color
+                $(this).css('color', 'Black'); // Reset text color
+            } else {
+                selectedColors.push(colorId);
+                $(this).css('background-color', 'green'); // Retain the original color
+                $(this).css('color', 'White'); // Change text color for better contrast
+            }
+
+            $('#selectedColorIds').val(selectedColors.join(','));
+        });
+    });
+
+</script>
 

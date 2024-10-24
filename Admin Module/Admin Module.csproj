@@ -8,14 +8,19 @@
 	</PropertyGroup>
 
 	<ItemGroup>
-	  <Content Remove="Views\Product\ViewProduct.cshtml" />
-	</ItemGroup>
-
-	<ItemGroup>
 		<Folder Include="wwwroot\Admin LTE\fontawesome-free\" />
 	</ItemGroup>
 
 	<ItemGroup>
+	  <None Include="Views\Category\AddCategory.cshtml" />
+	  <None Include="Views\Category\AllCategories.cshtml" />
+	  <None Include="Views\Category\EditCategory.cshtml" />
+	  <None Include="Views\Category\ViewCategory.cshtml" />
+	  <None Include="Views\Category\_SuccessMessage.cshtml" />
+	  <None Include="Views\Dashboard\Dashboard.cshtml" />
+	  <None Include="Views\Product\AddProduct.cshtml" />
+	  <None Include="Views\Product\AllProducts.cshtml" />
+	  <None Include="Views\Product\EditProduct.cshtml" />
 	  <None Include="Views\Product\ViewProduct.cshtml" />
 	  <None Include="wwwroot\Admin LTE\css\toastr.min.css" />
 	  <None Include="wwwroot\Admin LTE\js\toastr.min.js" />
@@ -27,14 +32,6 @@
 
 	<ItemGroup>
 		<ProjectReference Include="..\CommonModule\CommonModule.csproj" />
-	</ItemGroup>
-
-	<ItemGroup>
-	  <UpToDateCheckInput Remove="Views\Product\ViewProduct.cshtml" />
-	</ItemGroup>
-
-	<ItemGroup>
-	  <_ContentIncludedByDefault Remove="Views\Product\ViewProduct.cshtml" />
 	</ItemGroup>
 
 </Project>

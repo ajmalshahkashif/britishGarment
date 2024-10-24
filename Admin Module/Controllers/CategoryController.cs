@@ -63,6 +63,28 @@ namespace Admin_Module.Controllers
 
             return View(categories);
         }
+        public IActionResult ViewCategory(int id)
+        {
+            // Retrieve the category from the database using the provided id
+            var category = _context.ProductCategories
+                .Where(c => c.CategoryId == id)
+                .Select(c => new CategoryValidation
+                {
+                    Name = c.Name,
+                    Description = c.Description,
+                    isActive = c.IsActive
+                })
+                .FirstOrDefault();
+
+            // If category is null, return a NotFound view or message
+            if (category == null)
+            {
+                return NotFound();
+            }
+
+            // Pass the category data to the ViewCategory view
+            return View(category);
+        }
 
 
         public IActionResult EditCategory(int id)
@@ -111,9 +133,20 @@ namespace Admin_Module.Controllers
             var category = _context.ProductCategories.Find(id);
             if (category != null)
             {
+                // Check for related products
+                var relatedProducts = _context.Products.Where(p => p.CategoryId == id).ToList();
+                if (relatedProducts.Any())
+                {
+                    TempData["ErrorMessage"] = "Cannot Delete This CATEGORY  Because There Are Related PRODUCTS.";
+                    return RedirectToAction("AllCategories");
+                }
                 _context.ProductCategories.Remove(category);
                 _context.SaveChanges();
-                TempData["SuccessMessage"] = "Category deleted successfully!";
+                TempData["SuccessMessage"] = "Category Deleted Successfully!";
+            }
+            else
+            {
+                TempData["ErrorMessage"] = "Category Not Found! ";
             }
             return RedirectToAction("AllCategories");
         }

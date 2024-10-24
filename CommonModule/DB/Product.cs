@@ -21,11 +21,27 @@ public partial class Product
 
     public bool IsActive { get; set; }
 
+    public string? Gender { get; set; }
+
+    public int? Weight { get; set; }
+
+    public int? Length { get; set; }
+
+    public int? Height { get; set; }
+
+    public int? InStock { get; set; }
+
+    public int? Discount { get; set; }
+
     public virtual ProductCategory Category { get; set; } = null!;
+
+    public virtual ICollection<ProductColor> ProductColors { get; set; } = new List<ProductColor>();
+
+    public virtual ICollection<ProductImage> ProductImages { get; set; } = new List<ProductImage>();
+
+    public virtual ICollection<ProductSize> ProductSizes { get; set; } = new List<ProductSize>();
 
     public virtual ICollection<PurchaseDetail> PurchaseDetails { get; set; } = new List<PurchaseDetail>();
 
     public virtual ICollection<SaleDetail> SaleDetails { get; set; } = new List<SaleDetail>();
-
-    public virtual ICollection<Stock> Stocks { get; set; } = new List<Stock>();
 }

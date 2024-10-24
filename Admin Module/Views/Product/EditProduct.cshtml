@@ -1,4 +1,4 @@
-﻿@model Admin_Module.Models.ProductViewModel
+﻿@model Admin_Module.Models.ProductEditViewModel
 
 @{
     ViewBag.Title = "Edit Product";
@@ -6,10 +6,12 @@
 }
 
 @using (Html.BeginForm())
+
 {
     @Html.AntiForgeryToken()
 
     @if (TempData["SuccessMessage"] != null)
+
     {
         <br />
         <div class="alert alert-success alert-dismissible fade show" role="alert">
@@ -20,7 +22,6 @@
             </button>
         </div>
     }
-
     <div class="content-header">
         <div class="container-fluid">
             <div class="row mb-2">
@@ -40,56 +41,174 @@
     <div class="row">
         <div class="col-12">
             @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-
+            <!-- Fisrt Row  -->
             <div class="mb-3 row">
-                <div class="col-md-2">
+                <div class="col-md-1">
                     @Html.LabelFor(model => model.Name, htmlAttributes: new { @class = "col-form-label" })
                     <span class="text-danger ml-1">*</span>
                 </div>
-                <div class="col-md-6">
+                <div class="col-md-3">
                     @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control" } })
                     @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
                 </div>
-            </div>
-
-            <div class="mb-3 row">
-                @Html.LabelFor(model => model.ProductCategoryId, htmlAttributes: new { @class = "col-md-2 col-form-label" })
-                <div class="col-md-6">
+                <div class="col-md-2"></div>
+                @Html.LabelFor(model => model.ProductCategoryId, htmlAttributes: new { @class = "col-md-1 col-form-label" })
+                <div class="col-md-3">
                     @Html.DropDownListFor(model => model.ProductCategoryId, (SelectList)ViewBag.productCategories, new { @class = "form-control" })
                     @Html.ValidationMessageFor(model => model.ProductCategoryId, "", new { @class = "text-danger" })
                 </div>
             </div>
 
+            <!-- Second Row -->
             <div class="mb-3 row">
-                <div class="col-md-2">
+                <div class="col-md-1">
                     @Html.LabelFor(model => model.Price, htmlAttributes: new { @class = "col-form-label" })
                     <span class="text-danger ml-1">*</span>
                 </div>
-                <div class="col-md-6">
+                <div class="col-md-3">
                     @Html.TextBoxFor(model => model.Price, new { @class = "form-control", type = "number", min = "0", onkeydown = "return event.keyCode !== 190 && event.keyCode !== 110" })
                     @Html.ValidationMessageFor(model => model.Price, "", new { @class = "text-danger" })
                 </div>
-            </div>
-
-
-            <div class="mb-3 row">
-                @Html.LabelFor(model => model.Description, htmlAttributes: new { @class = "col-md-2 col-form-label" })
-                <div class="col-md-6">
-                    @Html.EditorFor(model => model.Description, new { htmlAttributes = new { @class = "form-control" } })
-                    @Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })
+                <div class="col-md-2"></div>
+                <div class="col-md-1">
+                    @Html.LabelFor(model => model.Weight, htmlAttributes: new { @class = "col-form-label" })
+                </div>
+                <div class="col-md-3">
+                    @Html.EditorFor(model => model.Weight, new { htmlAttributes = new { @class = "form-control", type = "number" } })
                 </div>
             </div>
 
+            <!-- Third Row: Length and Height -->
             <div class="mb-3 row">
-                @Html.LabelFor(model => model.isActive, htmlAttributes: new { @class = "col-md-2 col-form-label" })
-                <div class="col-md-6">
-                    @Html.CheckBoxFor(model => model.isActive, new { htmlAttributes = new { @class = "form-check-input" } })
+                <div class="col-md-1">
+                    @Html.LabelFor(model => model.Length, htmlAttributes: new { @class = "col-form-label" })
+                </div>
+                <div class="col-md-3">
+                    @Html.EditorFor(model => model.Length, new { htmlAttributes = new { @class = "form-control", type = "number" } })
+                </div>
+                <div class="col-md-2"></div>
+                <div class="col-md-1">
+                    @Html.LabelFor(model => model.Height, htmlAttributes: new { @class = "col-form-label" })
+                </div>
+                <div class="col-md-3">
+                    @Html.EditorFor(model => model.Height, new { htmlAttributes = new { @class = "form-control", type = "number" } })
+                </div>
+            </div>
+            <!-- Fourth Row: InStock and Discount -->
+            <div class="mb-3 row">
+                <div class="col-md-1">
+                    @Html.LabelFor(model => model.InStock, htmlAttributes: new { @class = "col-form-label" })
+                </div>
+                <div class="col-md-3">
+                    @Html.EditorFor(model => model.InStock, new { htmlAttributes = new { @class = "form-control", type = "number" } })
+                </div>
+                <div class="col-md-2"></div>
+                <div class="col-md-1">
+                    @Html.LabelFor(model => model.Discount, htmlAttributes: new { @class = "col-form-label" })
+                </div>
+                <div class="col-md-3">
+                    @Html.EditorFor(model => model.Discount, new { htmlAttributes = new { @class = "form-control", type = "number" } })
+                </div>
+            </div>
+
+            <!-- Five Row: Description and Gender -->
+            <div class="mb-3 row">
+                @Html.LabelFor(model => model.Description, htmlAttributes: new { @class = "col-md-1 col-form-label" })
+                <div class="col-md-3">
+                    @Html.EditorFor(model => model.Description, new { htmlAttributes = new { @class = "form-control", rows = 5, cols = 50 } })
+                    @Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })
+                </div>
+                <div class="col-md-2"></div>
+                <div class="col-md-1">
+                    @Html.LabelFor(model => model.Gender, htmlAttributes: new { @class = "col-form-label" })
+                </div>
+                <div class="col-md-3">
+                    @Html.DropDownListFor(model => model.Gender, new SelectList(new List<SelectListItem> {
+                            new SelectListItem { Value = "Male", Text = "Male" },
+                            new SelectListItem { Value = "Female", Text = "Female" },
+                            new SelectListItem { Value = "Unisex", Text = "Unisex" }
+                        }, "Value", "Text"), new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.Gender, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <!-- Seventh Row (Size Selection and Active Checkbox) -->
+            <div class="row mb-3">
+                <input type="hidden" id="selectedSizeIds" name="selectedSizes" value="@string.Join(",", Model.SelectedSizes)" />
+                @* <input type="hidden" id="selectedSizeIds" name="selectedSizes" /> *@
+                <label class="col-md-1 col-form-label">Size</label>
+                <div class="col-md-3 d-flex">
+                    @foreach (var size in ViewBag.productSizes)
+                    {
+
+                        var isSelected = Model.SelectedSizes != null && Model.SelectedSizes.Contains(size.Id);
+                        <button type="button" class="btn btn-outline-success size-select mx-1"
+                                data-size-id="@size.Id" style="background-color:@(isSelected ? "green" : ""); color:@(isSelected ? "white" : "black");">
+                            @size.Name
+                        </button>
+                    }
+                </div>
+                <div class="col-md-2"></div>
+                <label class="col-md-1 col-form-label">Active</label>
+                <div class="col-md-3">
+                    @Html.CheckBoxFor(model => model.isActive, new { @class = "form-check-input" })
                     @Html.ValidationMessageFor(model => model.isActive, "", new { @class = "text-danger" })
                 </div>
             </div>
 
+            <!-- Color Selection -->
+            <div class="mb-3 row">
+                <input type="hidden" id="selectedColorIds" name="selectedColors" value="@string.Join(",", Model.SelectedColors)" />
+                <label class="col-md-1 col-form-label">Colors</label>
+                <div class="col-md-10 d-flex flex-wrap">
+                    @foreach (var color in ViewBag.productColors)
+                    {
+                        var isSelected = Model.SelectedColors.Contains(color.Id);
+                        <button type="button" class="btn btn-outline-success color-select mx-1 mb-1"
+                                data-color-id="@color.Id"
+                                style="background-color:@(isSelected ? "green" : ""); color:@(isSelected ? "white" : "black");">
+                            @color.Name
+                        </button>
+                    }
+                </div>
+            </div>
+
+            <!--  Eight Row: Image Upload -->
+            <div class="mb-3 row">
+                <label class="col-md-1 col-form-label">Multiple Images</label>
+                <div class="col-md-3">
+                    <input type="file" name="ProductImages" id="ProductImages" multiple accept="image/*" class="form-control" onchange="previewImages()" />
+                </div>
+                <div class="col-md-2"></div>
+                <div class="col-md-1"></div>
+                <div class="col-md-3"></div>
+            </div>
+
+            <!--  Nine Row: Image Preview -->
+            <div class="mb-3 row">
+                <div class="col-md-1"></div>
+                <div class="col-md-10" id="imagePreviewContainer" style="display:flex; flex-wrap:wrap; gap:10px;">
+                    <!-- Image previews will be shown here -->
+                    @if (Model.ProductImages != null && Model.ProductImages.Count > 0)
+                    {
+
+                        foreach (var image in Model.ProductImages)
+                        {
+                            var base64Image = Convert.ToBase64String(image.Image);
+                            <img src="data:image/jpeg;base64,@base64Image" style="width:100px; height:auto; margin:5px;" />
+                        }
+                    }
+                    else
+                    {
+                        <p>No images available.</p>
+                    }
+                </div>
+            </div>
+
+
+            <!--  Tenth Row: Submit Button -->
             <div class="row">
-                <div class="offset-md-2 col-md-10">
+                <div class="offset-md-1 col-md-10">
                     <input type="submit" value="Save" class="btn btn-primary" />
                 </div>
             </div>
@@ -103,10 +222,68 @@
 
 <script>
     $(document).ready(function () {
+        // Handle Success Message Fade Out
         window.setTimeout(function () {
             $(".alert").fadeTo(500, 0).slideUp(500, function () {
                 $(this).remove();
             });
         }, 2000);
+
+        var selectedSizes = $('#selectedSizeIds').val().split(',').map(Number);
+        var selectedColors = $('#selectedColorIds').val().split(',').map(Number);
+
+        // Handle size selection
+        $('.size-select').click(function () {
+            var sizeId = $(this).data('size-id');
+            if (selectedSizes.includes(sizeId)) {
+                selectedSizes = selectedSizes.filter(id => id !== sizeId);
+                $(this).css('background-color', '').css('color', 'black');
+            } else {
+                selectedSizes.push(sizeId);
+                $(this).css('background-color', 'green').css('color', 'white');
+            }
+            $('#selectedSizeIds').val(selectedSizes.join(','));
+        });
+
+        // Handle color selection
+        $('.color-select').click(function () {
+            var colorId = $(this).data('color-id');
+            if (selectedColors.includes(colorId)) {
+                selectedColors = selectedColors.filter(id => id !== colorId);
+                $(this).css('background-color', '').css('color', 'black');
+            } else {
+                selectedColors.push(colorId);
+                $(this).css('background-color', 'green').css('color', 'white');
+            }
+            $('#selectedColorIds').val(selectedColors.join(','));
+        });
     });
+
+    function previewImages() {
+        const previewContainer = document.getElementById('imagePreviewContainer');
+        const files = document.getElementById('ProductImages').files;
+
+        // Clear the existing previews
+        previewContainer.innerHTML = '';
+
+        // Loop through the selected files
+        for (let i = 0; i < files.length; i++) {
+            const file = files[i];
+            const reader = new FileReader();
+
+            // Create a preview once the file is loaded
+            reader.onload = function (e) {
+                const img = document.createElement('img');
+                img.src = e.target.result;
+                img.style.width = '100px';
+                img.style.height = 'auto';
+                img.style.margin = '5px';
+                previewContainer.appendChild(img);
+            };
+
+            // Read the file as a data URL
+            reader.readAsDataURL(file);
+        }
+    }
 </script>
+

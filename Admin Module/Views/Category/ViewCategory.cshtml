@@ -1,0 +1,67 @@
+﻿@model Admin_Module.Models.CategoryValidation
+
+@{
+    ViewBag.Title = "View Product Category";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@using (Html.BeginForm())
+{
+    <div class="content-header">
+        <div class="container-fluid">
+            <div class="row mb-2">
+                <div class="col-md-6">
+                    <h1 class="m-0 text-dark">Category Details</h1>
+                </div>
+                <div class="col-md-6">
+                    <ol class="breadcrumb float-sm-right">
+                        <li class="breadcrumb-item">@Html.ActionLink("All Categories", "AllCategories", "Category")</li>
+                        <li class="breadcrumb-item active">Category Details</li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+    </div>
+     <div class="row">
+        <div class="col-12">
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+        <div class="mb-3 row">
+            <label class="col-md-2 col-form-label">Name</label>
+            <div class="col-md-6">
+                <p class="form-control-plaintext">@Model.Name</p>
+            </div>
+        </div>
+
+        <div class="mb-3 row">
+            <label class="col-md-2 col-form-label">Description</label>
+            <div class="col-md-6">
+                <p class="form-control-plaintext">@Model.Description</p>
+            </div>
+        </div>
+
+        <div class="mb-3 row">
+            <label class="col-md-2 col-form-label">Status</label>
+            <div class="col-md-6">
+                    <p class="form-control-plaintext">@(Model.isActive ? "Active" : "InActive") </p>
+            </div>
+        </div>
+    </div>
+  </div>
+
+}
+
+
+<div>
+    @Html.ActionLink("Back to List", "AllCategories", new { @class = "btn btn-link" })
+</div>
+
+<script>
+    $(document).ready(function () {
+        window.setTimeout(function () {
+            $(".alert").fadeTo(500, 0).slideUp(500, function () {
+                $(this).remove();
+            });
+        }, 2000);
+    });
+</script>
