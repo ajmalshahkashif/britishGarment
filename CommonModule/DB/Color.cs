@@ -12,4 +12,6 @@ public partial class Color
     public string RgbColor { get; set; } = null!;
 
     public string? Description { get; set; }
+
+    public virtual ICollection<ProductColor> ProductColors { get; set; } = new List<ProductColor>();
 }

@@ -31,6 +31,8 @@ public partial class User
 
     public DateTime? ResetTokenExpires { get; set; }
 
+    public virtual ICollection<Cart> Carts { get; set; } = new List<Cart>();
+
     public virtual ICollection<Purchase> Purchases { get; set; } = new List<Purchase>();
 
     public virtual Role? Role { get; set; }

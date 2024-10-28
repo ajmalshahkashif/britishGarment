@@ -7,4 +7,8 @@
     <RootNamespace>Customer_Module</RootNamespace>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\CommonModule\CommonModule.csproj" />
+  </ItemGroup>
+
 </Project>

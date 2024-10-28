@@ -2,146 +2,227 @@
 <html lang="en">
 
 <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
     <title>@ViewData["Title"] - Customer_Module</title>
-    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
-    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
-    <link rel="stylesheet" href="~/Customer_Module.styles.css" asp-append-version="true" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    <style>
-        body {
-            font-family: Arial, Helvetica, sans-serif;
-            margin: 0;
-        }
 
-        .navbar {
-            background-color: #333;
-            z-index: 1000;
-            padding: 0;
-        }
+    <link href="~/css/bootstrap.min.css" rel="stylesheet" /> @* Bootstrap v3.3.5  *@
 
-            .navbar .col-2 a,
-            .navbar .col-2 .subnavbtn {
-                color: white;
-                text-align: center;
-                padding: 14px 16px;
-                text-decoration: none;
-                display: block;
-            }
-
-            .navbar a:hover,
-            .subnav:hover .subnavbtn {
-                background-color: red;
-            }
-
-        .subnav-content {
-            display: none;
-            position: absolute;
-            left: 0;
-            background-color: red;
-            width: 100%;
-            z-index: 1100;
-        }
-
-            .subnav-content a {
-                float: left;
-                color: white;
-                text-decoration: none;
-            }
-
-                .subnav-content a:hover {
-                    background-color: #eee;
-                    color: black;
-                }
-
-        .subnav:hover .subnav-content {
-            display: block;
-        }
-
-        /* Adjust the content below to ensure it's not affected by the navbar */
-        main {
-            margin-top: 60px;
-        }
-    </style>
+    <link href="~/css/components.css" rel="stylesheet" />
+    <link href="~/css/style-shop.css" rel="stylesheet" />
+    <link href="~/css/style.css" rel="stylesheet" />
+    <link href="~/css/style-responsive.css" rel="stylesheet" />
+    <link href="~/css/red.css" rel="stylesheet" />
+    <link href="~/css/custom.css" rel="stylesheet" />
+    <link href="~/css/custom-font-sizes.css" rel="stylesheet" />
 </head>
 
+
 <body>
-    <!-- Navbar -->
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+
+    <!-- BEGIN TOP BAR -->
+    <div class="pre-header">
         <div class="container-fluid">
-            <!-- Home (2 columns) -->
-            <div class="col-lg-2">
-                <a href="#home" class="nav-link">Home</a>
-            </div>
-
-            <!-- About (2 columns) with dropdown -->
-            <div class="col-lg-2 subnav">
-                <button class="nav-link subnavbtn">About <i class="fa fa-caret-down"></i></button>
-                <div class="subnav-content">
-                    <a href="#company">Company</a>
-                    <a href="#team">Team</a>
-                    <a href="#careers">Careers</a>
+            <div class="row">
+                <!-- BEGIN TOP BAR LEFT PART -->
+                <div class="col-md-6 col-sm-6">
                 </div>
-            </div>
+                <!-- END TOP BAR LEFT PART -->
+                <!-- BEGIN TOP BAR MENU -->
+                <div class="col-md-6 col-sm-6 additional-nav">
+                    <ul class="list-unstyled list-inline pull-right">
+                        <li><a href="shop-account.html">My Account</a></li>
+                        <li class="langs-block">
+                            <a href="javascript:void(0);" class="current">Ajmal Shah </a>
+                            <div class="langs-block-others-wrapper">
+                                <div class="langs-block-others">
+                                    <a href="javascript:void(0);">French</a>
+                                    <a href="javascript:void(0);">Sign out</a>
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
 
-            <!-- Services (2 columns) with dropdown -->
-            <div class="col-lg-2 subnav">
-                <button class="nav-link subnavbtn">Services <i class="fa fa-caret-down"></i></button>
-                <div class="subnav-content">
-                    <a href="#bring">Bring</a>
-                    <a href="#deliver">Deliver</a>
-                    <a href="#package">Package</a>
-                    <a href="#express">Express</a>
                 </div>
-            </div>
 
-            <!-- Partners (2 columns) with dropdown -->
-            <div class="col-lg-2 subnav">
-                <button class="nav-link subnavbtn">Partners <i class="fa fa-caret-down"></i></button>
-                <div class="subnav-content">
-                    <a href="#link1">Link 1</a>
-                    <a href="#link2">Link 2</a>
-                    <a href="#link3">Link 3</a>
-                    <a href="#link4">Link 4</a>
-                </div>
+                <!-- END TOP BAR MENU -->
             </div>
+        </div>
+    </div>
+    </div>
+    <!-- END TOP BAR -->
+    <!-- BEGIN HEADER -->
+    <div class="header">
+        <div class="container">
+            <a class="site-logo" href="shop-index.html"><img src="~/image/logo-shop-red.png" alt="Metronic Shop UI" /></a>
 
-            <!-- Notifications Dropdown (remaining space, right-aligned) -->
-            <div class="col-lg-4 d-flex justify-content-end">
-                <ul class="navbar-nav ml-auto">
-                    <!-- Notifications Dropdown Menu -->
-                    <li class="nav-item dropdown">
-                        <a class="nav-link" data-toggle="dropdown" href="#">
-                            <i class="far fa-bell"></i>
-                            <span class="badge badge-warning navbar-badge">15</span>
-                        </a>
-                        <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
-                            <span class="dropdown-item dropdown-header">15 Notifications</span>
-                            <div class="dropdown-divider"></div>
-                            <a href="#" class="dropdown-item">
-                                <i class="fas fa-envelope mr-2"></i> 4 new messages
-                                <span class="float-right text-muted text-sm">3 mins</span>
-                            </a>
-                            <div class="dropdown-divider"></div>
-                            <a href="#" class="dropdown-item">
-                                <i class="fas fa-users mr-2"></i> 8 friend requests
-                                <span class="float-right text-muted text-sm">12 hours</span>
-                            </a>
-                            <div class="dropdown-divider"></div>
-                            <a href="#" class="dropdown-item">
-                                <i class="fas fa-file mr-2"></i> 3 new reports
-                                <span class="float-right text-muted text-sm">2 days</span>
-                            </a>
-                            <div class="dropdown-divider"></div>
-                            <a href="#" class="dropdown-item dropdown-footer">See All Notifications</a>
-                        </div>
+            <a href="javascript:void(0);" class="mobi-toggler"><i class="fa fa-bars"></i></a>
+
+            <!-- BEGIN CART TODO: I need to make it dynamic -->
+            <div class="top-cart-block">
+
+                @await Component.InvokeAsync("Cart") <!-- This calls your Cart View Component -->
+
+            </div>
+            <!--END CART -->
+            <!-- BEGIN NAVIGATION -->
+            <div class="header-navigation">
+                <ul>
+
+                    <li class="dropdown dropdown-megamenu">
+                        <a asp-controller="Home" asp-action="Index" class="">Home</a>
+                    </li>
+
+
+                    <li class="dropdown dropdown-megamenu">
+                        <a class="dropdown-toggle" data-toggle="dropdown" data-target="#" href="javascript:;">Man</a>
+                        <ul class="dropdown-menu">
+                            <li>
+                                <div class="header-navigation-content">
+                                    <div class="row">
+                                        <div class="col-md-4 header-navigation-col">
+                                            <h4>Clothing</h4>
+                                            <ul>
+                                                <li><a href="shop-product-list.html">Coat</a></li>
+                                                <li><a href="shop-product-list.html">Jackets</a></li>
+                                                <li><a href="shop-product-list.html">Trousers</a></li>
+                                                <li><a href="shop-product-list.html">Leatherwear</a></li>
+                                                <li><a href="shop-product-list.html">Sleepwear</a></li>
+                                                <li><a href="shop-product-list.html">Swimwear</a></li>
+                                                <li><a href="shop-product-list.html">Security uniform</a></li>
+                                                <li><a href="shop-product-list.html">Sports uniform</a></li>
+                                            </ul>
+                                        </div>
+                                        <div class="col-md-4 header-navigation-col">
+                                            <h4>Accessories</h4>
+                                            <ul>
+                                                <li><a href="shop-product-list.html">Cap</a></li>
+                                                <li><a href="shop-product-list.html">Boxers</a></li>
+                                                <li><a href="shop-product-list.html">Gloves</a></li>
+                                                <li><a href="shop-product-list.html">Belts</a></li>
+                                                <li><a href="shop-product-list.html">Ties</a></li>
+                                                <li><a href="shop-product-list.html">Bags</a></li>
+                                            </ul>
+                                        </div>
+                                        <div class="col-md-4 header-navigation-col">
+                                            <h4>Footwear</h4>
+                                            <ul>
+                                                <li><a href="shop-product-list.html">Boats</a></li>
+                                                <li><a href="shop-product-list.html">Socks</a></li>
+                                                <li><a href="shop-product-list.html">Sports Shoes</a></li>
+                                                <li><a href="shop-product-list.html">Slippers</a></li>
+                                                <li><a href="shop-product-list.html">Casual Shoes</a></li>
+                                                <li><a href="shop-product-list.html">Formal Shoes</a></li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </li>
+                        </ul>
+                    </li>
+
+                    <li class="dropdown dropdown-megamenu">
+                        <a class="dropdown-toggle" data-toggle="dropdown" data-target="#" href="javascript:;">Woman</a>
+                        <ul class="dropdown-menu">
+                            <li>
+                                <div class="header-navigation-content">
+                                    <div class="row">
+                                        <div class="col-md-4 header-navigation-col">
+                                            <h4>Clothing</h4>
+                                            <ul>
+                                                <li><a href="shop-product-list.html">Coat</a></li>
+                                                <li><a href="shop-product-list.html">Jackets</a></li>
+                                                <li><a href="shop-product-list.html">Trousers</a></li>
+                                                <li><a href="shop-product-list.html">Leatherwear</a></li>
+                                                <li><a href="shop-product-list.html">Sleepwear</a></li>
+                                                <li><a href="shop-product-list.html">Swimwear</a></li>
+                                                <li><a href="shop-product-list.html">Security uniform</a></li>
+                                                <li><a href="shop-product-list.html">Sports uniform</a></li>
+                                            </ul>
+                                        </div>
+                                        <div class="col-md-4 header-navigation-col">
+                                            <h4>Accessories</h4>
+                                            <ul>
+                                                <li><a href="shop-product-list.html">Cap</a></li>
+                                                <li><a href="shop-product-list.html">Bra</a></li>
+                                                <li><a href="shop-product-list.html">Panty</a></li>
+                                                <li><a href="shop-product-list.html">Gloves</a></li>
+                                                <li><a href="shop-product-list.html">Bags</a></li>
+                                                <li><a href="shop-product-list.html">Belts</a></li>
+                                                <li><a href="shop-product-list.html">Ties</a></li>
+                                            </ul>
+                                        </div>
+                                        <div class="col-md-4 header-navigation-col">
+                                            <h4>Footwear</h4>
+                                            <ul>
+                                                <li><a href="shop-product-list.html">Boats</a></li>
+                                                <li><a href="shop-product-list.html">Socks</a></li>
+                                                <li><a href="shop-product-list.html">Sports Shoes</a></li>
+                                                <li><a href="shop-product-list.html">Slippers</a></li>
+                                                <li><a href="shop-product-list.html">Casual Shoes</a></li>
+                                                <li><a href="shop-product-list.html">Formal Shoes</a></li>
+                                                <li><a href="shop-product-list.html">Heels</a></li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </li>
+                        </ul>
+                    </li>
+
+                    <li class="dropdown dropdown-megamenu">
+                        <a class="dropdown-toggle" data-toggle="dropdown" data-target="#" href="javascript:;">Children</a>
+                        <ul class="dropdown-menu">
+                            <li>
+                                <div class="header-navigation-content">
+                                    <div class="row">
+                                        <div class="col-md-4 header-navigation-col">
+                                            <h4>Clothing</h4>
+                                            <ul>
+                                                <li><a href="shop-product-list.html">Coat</a></li>
+                                                <li><a href="shop-product-list.html">Jackets</a></li>
+                                                <li><a href="shop-product-list.html">Trousers</a></li>
+                                                <li><a href="shop-product-list.html">Leatherwear</a></li>
+                                                <li><a href="shop-product-list.html">Sleepwear</a></li>
+                                                <li><a href="shop-product-list.html">Swimwear</a></li>
+                                                <li><a href="shop-product-list.html">Sports uniform</a></li>
+                                            </ul>
+                                        </div>
+                                        <div class="col-md-4 header-navigation-col">
+                                            <h4>Accessories</h4>
+                                            <ul>
+                                                <li><a href="shop-product-list.html">Cap</a></li>
+                                                <li><a href="shop-product-list.html">Gloves</a></li>
+                                                <li><a href="shop-product-list.html">Bags</a></li>
+                                                <li><a href="shop-product-list.html">Belts</a></li>
+                                                <li><a href="shop-product-list.html">Ties</a></li>
+                                            </ul>
+                                        </div>
+                                        <div class="col-md-4 header-navigation-col">
+                                            <h4>Footwear</h4>
+                                            <ul>
+                                                <li><a href="shop-product-list.html">Boats</a></li>
+                                                <li><a href="shop-product-list.html">Socks</a></li>
+                                                <li><a href="shop-product-list.html">Sports Shoes</a></li>
+                                                <li><a href="shop-product-list.html">Slippers</a></li>
+                                                <li><a href="shop-product-list.html">Casual Shoes</a></li>
+                                                <li><a href="shop-product-list.html">Formal Shoes</a></li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </li>
+                        </ul>
+                    </li>
+
+                    <li class="dropdown dropdown-megamenu">
+                        <a class="dropdown-toggle" data-toggle="dropdown" data-target="#" href="javascript:;">Contact Us</a>
                     </li>
                 </ul>
             </div>
+            <!-- END NAVIGATION -->
         </div>
-    </nav>
-
+    </div>
+    <!-- Header END -->
     <!-- Main Content -->
     <div class="container mt-4">
         <main role="main" class="pb-3">
@@ -156,10 +237,7 @@
         </div>
     </footer>
 
-    <script src="~/lib/jquery/dist/jquery.min.js"></script>
-    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="~/js/site.js" asp-append-version="true"></script>
-    @await RenderSectionAsync("Scripts", required: false)
+
 </body>
 
 </html>

@@ -11,5 +11,7 @@ public partial class Size
 
     public string? Description { get; set; }
 
+    public virtual ICollection<CartItem> CartItems { get; set; } = new List<CartItem>();
+
     public virtual ICollection<ProductSize> ProductSizes { get; set; } = new List<ProductSize>();
 }

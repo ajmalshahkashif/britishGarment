@@ -11,5 +11,7 @@ public partial class ProductImage
 
     public byte[] Image { get; set; } = null!;
 
+    public bool? IsMain { get; set; }
+
     public virtual Product Product { get; set; } = null!;
 }
