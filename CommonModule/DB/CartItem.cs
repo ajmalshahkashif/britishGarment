@@ -23,6 +23,8 @@ public partial class CartItem
 
     public virtual Cart Cart { get; set; } = null!;
 
+    public virtual Color Color { get; set; } = null!;
+
     public virtual Product Product { get; set; } = null!;
 
     public virtual Size Size { get; set; } = null!;

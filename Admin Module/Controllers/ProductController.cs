@@ -58,7 +58,8 @@ namespace Admin_Module.Controllers
                     Product obj = new Product
                     {
                         Name = product.Name,
-                        Description = product.Description,
+                        ShortDescription = product.ShortDescription,
+                        FullDescription = product.DetailedDescription,
                         Price = product.Price,
                         CategoryId = product.ProductCategoryId,
                         IsActive = product.isActive,
@@ -211,7 +212,8 @@ namespace Admin_Module.Controllers
             var productEditViewModel = new ProductEditViewModel
             {
                 Name = product.Name,
-                Description = product.Description,
+                ShortDescription = product.ShortDescription,
+                FullDescription = product.FullDescription,
                 isActive = product.IsActive,
                 ProductCategoryId = product.CategoryId, // Set the category ID
                 Price = product.Price, // Set the price
@@ -240,7 +242,8 @@ namespace Admin_Module.Controllers
                 if (existingProduct != null)
                 {
                     existingProduct.Name = product.Name;
-                    existingProduct.Description = product.Description;
+                    existingProduct.FullDescription = product.DetailedDescription;
+                    existingProduct.ShortDescription = product.ShortDescription;
                     existingProduct.IsActive = product.isActive;
                     existingProduct.CategoryId = product.ProductCategoryId; // Save the selected category
                     existingProduct.Price = product.Price;
@@ -340,7 +343,8 @@ namespace Admin_Module.Controllers
                 .Select(p => new ProductEditViewModel
                 {
                     Name = p.Name,
-                    Description = p.Description,
+                    ShortDescription = p.ShortDescription,
+                    FullDescription = p.FullDescription,
                     isActive = p.IsActive,
                     ProductCategoryId = p.CategoryId, // Set the category ID
                     ProductCategoryName = p.Category.Name, // Get the category name

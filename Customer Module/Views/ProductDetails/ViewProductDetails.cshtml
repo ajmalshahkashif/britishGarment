@@ -1,4 +1,5 @@
-﻿@model CommonModule.DB.Product
+﻿@* View for the ViewProductDetails action result *@
+@model CommonModule.DB.Product
 
 @{
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -74,7 +75,7 @@
                         </div>
                         <div class="col-12 col-sm-6">
                             <h3 class="my-3">@Model.Name</h3>
-                            <p>@Model.Description</p>
+                            <p>@Model.ShortDescription</p>
 
                             <hr>
                             <h4>Available Colors</h4>
@@ -83,7 +84,7 @@
                                 @foreach (var color in ViewBag.productColor)
                                 {
                                     <label class="btn btn-default text-center">
-                                        <input type="radio" name="color_option" id="color_option2" autocomplete="off">@color.Name<br>
+                                        <input type="radio" name="color_option" autocomplete="off" value="@color.Id">@color.Name<br>
                                         <i class="fas fa-circle fa-2x text-@color.Name.ToLower()"></i>
                                     </label>
                                 }
@@ -95,7 +96,7 @@
                                 @foreach (var size in ViewBag.productSizes)
                                 {
                                     <label class="btn btn-default text-center">
-                                        <input type="radio" name="color_option" id="color_option1" autocomplete="off">
+                                        <input type="radio" name="size_option" autocomplete="off" value="@size.Id">
                                         <span class="text-xl">@size.Name</span>
                                         <br>
                                         Small
@@ -115,11 +116,12 @@
 
 
                             <div class="mt-4">
-                                <div class="btn btn-primary btn-lg btn-flat">
+                                <div id="addToCartButton" class="btn btn-primary btn-lg btn-flat" type="button">
                                     <i class="fas fa-cart-plus fa-lg mr-2"></i>
                                     Add to Cart
                                 </div>
                             </div>
+
 
                             <div class="mt-4 product-share">
                                 <a href="#" class="text-gray">
@@ -180,5 +182,30 @@
     <script src="~/js/adminlte.min.js"></script>
     <!-- AdminLTE for demo purposes -->
     <script src="~/js/demo.js"></script>
+
+    <script>
+        document.getElementById("addToCartButton").addEventListener("click", function () {
+            debugger;
+            const productId = @Model.ProductId;
+            const quantity = 1;  // default quantity
+            const sizeId = $("input[name='size_option']:checked").val();
+            const colorId = $("input[name='color_option']:checked").val();
+
+            $.ajax({
+                url: '@Url.Action("AddToCart", "ProductDetails")',
+                type: 'POST',
+                data: { productId: productId, quantity: quantity, sizeId: sizeId, colorId: colorId },
+                success: function (response) {
+                    if (response.success) {
+                        window.location.href = '@Url.Action("ProductListing", "ProductDetails", new { categoryId = Model.CategoryId })';
+
+                    } else {
+
+                        alert("Could not add to cart.");
+                    }
+                }
+            });
+        });
+    </script>
 </body>
 </html>

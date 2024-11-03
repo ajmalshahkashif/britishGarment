@@ -17,7 +17,9 @@ public partial class Product
 
     public DateTime? UpdatedAt { get; set; }
 
-    public string? Description { get; set; }
+    public string? ShortDescription { get; set; }
+
+    public string? FullDescription { get; set; }
 
     public bool IsActive { get; set; }
 

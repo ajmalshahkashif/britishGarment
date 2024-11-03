@@ -139,10 +139,10 @@
 
             <!-- 6th Row (Description,Gender) -->
             <div class="mb-3 row">
-                @Html.LabelFor(model => model.Description, htmlAttributes: new { @class = "col-md-1 col-form-label" })
+                @Html.LabelFor(model => model.ShortDescription, htmlAttributes: new { @class = "col-md-1 col-form-label" })
                 <div class="col-md-3">
-                    @Html.TextAreaFor(model => model.Description, new { @class = "form-control", rows = 5, cols = 50 })
-                    @Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })
+                    @Html.TextAreaFor(model => model.ShortDescription, new { @class = "form-control", rows = 5, cols = 50 })
+                    @Html.ValidationMessageFor(model => model.ShortDescription, "", new { @class = "text-danger" })
                 </div>
                 <div class="col-md-2"></div>
                 <div class="col-md-1">

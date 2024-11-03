@@ -76,7 +76,12 @@ public partial class GarmentContext : DbContext
         {
             entity.HasKey(e => new { e.CartId, e.ProductId });
 
-            entity.ToTable("CartItem");
+            entity.ToTable("CartItem", tb =>
+                {
+                    tb.HasTrigger("trg_CartItem_Delete");
+                    tb.HasTrigger("trg_CartItem_Insert");
+                    tb.HasTrigger("trg_CartItem_Update");
+                });
 
             entity.Property(e => e.AddedAt)
                 .HasDefaultValueSql("(getdate())")
@@ -88,6 +93,11 @@ public partial class GarmentContext : DbContext
                 .HasForeignKey(d => d.CartId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("FK_CartItem_Cart");
+
+            entity.HasOne(d => d.Color).WithMany(p => p.CartItems)
+                .HasForeignKey(d => d.ColorId)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK_CartItem_Colors");
 
             entity.HasOne(d => d.Product).WithMany(p => p.CartItems)
                 .HasForeignKey(d => d.ProductId)
@@ -124,12 +134,12 @@ public partial class GarmentContext : DbContext
 
             entity.Property(e => e.ProductId).HasColumnName("ProductID");
             entity.Property(e => e.CreatedAt).HasDefaultValueSql("(getdate())");
-            entity.Property(e => e.Description).HasMaxLength(1000);
             entity.Property(e => e.Gender)
                 .HasMaxLength(100)
                 .IsUnicode(false);
             entity.Property(e => e.Name).HasMaxLength(100);
             entity.Property(e => e.Price).HasColumnType("decimal(18, 2)");
+            entity.Property(e => e.ShortDescription).HasMaxLength(1000);
 
             entity.HasOne(d => d.Category).WithMany(p => p.Products)
                 .HasForeignKey(d => d.CategoryId)

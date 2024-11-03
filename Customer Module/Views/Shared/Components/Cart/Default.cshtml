@@ -1,8 +1,16 @@
 ﻿@model CartDto
 
 <div class="top-cart-info">
-    <a href="javascript:void(0);" class="top-cart-info-count">@Model.Items.Count items</a>
-    <a href="javascript:void(0);" class="top-cart-info-value">$@Model.TotalAmount</a>
+    @if (Model?.Items != null && Model.Items.Any())
+    {
+        <a href="javascript:void(0);" class="top-cart-info-count">@Model.Items.Count items</a>
+    }
+    else
+    {
+        <a href="javascript:void(0);" class="top-cart-info-count">0 items</a>
+    }
+
+    <a href="javascript:void(0);" class="top-cart-info-value">@Model.TotalAmount</a>
 </div>
 
 <i class="fa fa-shopping-cart"></i>
@@ -10,7 +18,6 @@
 <div class="top-cart-content-wrapper">
     <div class="top-cart-content">
         <ul class="scroller" style="height: auto;">
-
             @if (Model.Items != null && Model.Items.Count > 0)
             {
                 @foreach (var item in Model.Items)
@@ -36,8 +43,9 @@
             }
         </ul>
 
+
         <div class="text-right">
-            <a href="shop-shopping-cart.html" class="btn btn-default">View Cart</a>
+            <a href="@Url.Action("CartItemsListing", "Checkout")" class="btn btn-default">View Cart</a>
             <a href="shop-checkout.html" class="btn btn-primary">Checkout</a>
         </div>
     </div>

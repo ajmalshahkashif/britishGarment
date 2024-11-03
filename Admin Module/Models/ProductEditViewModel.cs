@@ -15,7 +15,12 @@ namespace Admin_Module.Models
         public bool isActive { get; set; }
 
         [MaxLength(1000, ErrorMessage = "Description should not be greater not 1000 characters")]
-        public string? Description { get; set; }
+        [Display(Name = "Short Note")]
+        public string? ShortDescription { get; set; }
+
+
+        [Display(Name = "Detail Description")]
+        public string? FullDescription { get; set; }
 
         [Display(Name = "Pricing")]
         public decimal Price { get; set; }
