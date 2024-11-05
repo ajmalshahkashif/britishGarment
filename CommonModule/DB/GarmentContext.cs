@@ -167,6 +167,7 @@ public partial class GarmentContext : DbContext
             entity.ToTable("ProductColor");
 
             entity.Property(e => e.Description).HasMaxLength(500);
+            entity.Property(e => e.IsAddedToCart).HasColumnName("isAddedToCart");
 
             entity.HasOne(d => d.Color).WithMany(p => p.ProductColors)
                 .HasForeignKey(d => d.ColorId)
@@ -198,6 +199,7 @@ public partial class GarmentContext : DbContext
             entity.ToTable("ProductSize");
 
             entity.Property(e => e.Description).HasMaxLength(500);
+            entity.Property(e => e.IsAddedToCart).HasColumnName("isAddedToCart");
 
             entity.HasOne(d => d.Product).WithMany(p => p.ProductSizes)
                 .HasForeignKey(d => d.ProductId)

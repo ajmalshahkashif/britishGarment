@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using CommonModule.DB;
 using Microsoft.EntityFrameworkCore;
+using Customer_Module.Models;
 
 namespace Customer_Module.Controllers
 {
@@ -10,28 +11,30 @@ namespace Customer_Module.Controllers
         {
         }
 
-        public IActionResult ViewProductDetails(int productId)
+        public async Task<IActionResult> ViewProductDetails(int productId)
         {
-            var product = _context.Products
-                  .Include(p => p.ProductImages) // Include ProductImages
-                  .Include(p => p.ProductColors) // Include ProductColors for the product
-                      .ThenInclude(pc => pc.Color) // Include the related Color entities
-                  .Include(p => p.ProductSizes) // Include ProductSizes
-                      .ThenInclude(ps => ps.Size) // Include the related Size entities
-                  .FirstOrDefault(p => p.ProductId == productId);
+            var product = await _context.Products
+                .Include(p => p.ProductImages)
+                .Include(p => p.ProductColors).ThenInclude(pc => pc.Color)
+                .Include(p => p.ProductSizes).ThenInclude(ps => ps.Size)
+                .FirstOrDefaultAsync(p => p.ProductId == productId);
 
-            // Get the available sizes for the product
-            ViewBag.productSizes = product?.ProductSizes.Select(ps => new
+            if (product == null)
             {
-                ps.Size.Id,
-                ps.Size.Name
+                return NotFound(); // Return a 404 if the product isn't found
+            }
+
+            ViewBag.productSizes = product.ProductSizes.Select(ps => new ProductsViewModel.SizeViewModel
+            {
+                Id = ps.Size.Id,
+                Name = ps.Size.Name
             }).ToList();
 
-            ViewBag.productColor = product?.ProductColors.Select(ps => new
+            ViewBag.productColor = product.ProductColors.Select(pc => new ProductsViewModel.ColorViewModel
             {
-                ps.Color.Id,
-                ps.Color.RgbColor,
-                ps.Color.Name
+                Id = pc.Color.Id,
+                Name = pc.Color.Name,
+                RgbColor = pc.Color.RgbColor
             }).ToList();
 
             return View(product);
@@ -58,7 +61,7 @@ namespace Customer_Module.Controllers
 
             int userId = 1;
             // Check if there's an active cart for this user
-            var cart = _context.Carts.FirstOrDefault(c => c.UserId == userId && c.IsActive == true);
+            var cart = _context.Carts.FirstOrDefault(c => c.UserId == userId);
 
             if (cart == null)
             {
@@ -71,13 +74,14 @@ namespace Customer_Module.Controllers
                 _context.Carts.Add(cart);
                 _context.SaveChanges();
             }
+            cart.IsActive = true;
 
-            var existingCartItem = _context.CartItems.FirstOrDefault(c => c.CartId == cart.Id && c.ProductId == productId);
+            var CartItem = _context.CartItems.FirstOrDefault(c => c.CartId == cart.Id && c.ProductId == productId);
             var productRecord = _context.Products.Find(productId);
 
-            if (existingCartItem == null)
+            if (CartItem == null)
             {
-                var cartItem = new CartItem
+                CartItem = new CartItem
                 {
                     CartId = cart.Id,
                     ProductId = productId,
@@ -87,16 +91,27 @@ namespace Customer_Module.Controllers
                     Price = productRecord.Price,
                     AddedAt = DateTime.UtcNow
                 };
-                _context.CartItems.Add(cartItem);
+                _context.CartItems.Add(CartItem);
             }
             else
             {
                 // Item already exists, so update the quantity
-                existingCartItem.Price += productRecord.Price;
-                existingCartItem.Quantity += quantity;
-                existingCartItem.SizeId = sizeId;
-                existingCartItem.ColorId = colorId;
+                CartItem.Price += productRecord.Price;
+                CartItem.Quantity += quantity;
+                CartItem.SizeId = sizeId;
+                CartItem.ColorId = colorId;
             }
+
+            // Remove ProductColor and ProductSize records related to this cartItem
+            var productColor = _context.ProductColors
+                .FirstOrDefault(pc => pc.ProductId == CartItem.ProductId && pc.ColorId == CartItem.ColorId);
+            var productSize = _context.ProductSizes
+                .FirstOrDefault(ps => ps.ProductId == CartItem.ProductId && ps.SizeId == CartItem.SizeId);
+
+            //re-enable these color & size, so that they are available for user add-to-cart process
+            productColor.IsAddedToCart = true;
+            productSize.IsAddedToCart = true;
+
 
             _context.SaveChanges();
 

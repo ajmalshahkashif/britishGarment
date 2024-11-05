@@ -5,65 +5,58 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-@using (Html.BeginForm())
-{
-    @Html.AntiForgeryToken()
+<div class="container">
+    <div class="row">
 
-    <div class="container">
-        <div class="row">
-            <div class="col-sm-12 col-md-10 col-md-offset-1">
-                <table class="table table-hover">
-                    <thead>
-                        <tr>
-                            <th>Product</th>
-                            <th>Quantity</th>
-                            <th class="text-center">Price</th>
-                            <th class="text-center">Total</th>
-                            <th> </th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @foreach (var item in Model)
-                        {
-                            <tr>
-                                <td class="col-sm-8 col-md-6">
-                                    <div class="media">
-                                        <a class="thumbnail pull-left" href="#">
-                                            <img class="media-object" src="data:image/png;base64,@item.ImageData" style="width: 72px; height: 72px;" />
-                                        </a>
-                                        <div class="media-body">
-                                            <h4 class="media-heading"><a href="#">@item.ProductName</a></h4>
-                                            <span>Color: </span><span class="text-success"><strong>@item.Color</strong></span><br />
-                                            <span>Size: </span><span class="text-success"><strong>@item.Size</strong></span>
-                                        </div>
-                                    </div>
-                                </td>
-                                <td class="col-sm-1 col-md-1" style="text-align: center">
-                                    <input type="number" class="form-control" value="@item.Quantity" />
-                                </td>
-                                <td class="col-sm-1 col-md-1 text-center"><strong>@item.Price.ToString("C")</strong></td>
-                                <td class="col-sm-1 col-md-1 text-center"><strong>@item.ItemTotal.ToString("C")</strong></td>
-                                <td class="col-sm-1 col-md-1">
-                                    <form asp-action="RemoveCartItem" asp-controller="Checkout" method="post">
-                                        <input type="hidden" name="cartItemId" value="@item.CartId" />
-                                        <button type="submit" class="btn btn-danger">Remove</button>
-                                    </form>
-                                </td>
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                    <th class="col-xs-4 col-lg-3">Product</th>
+                    <th class="col-xs-2 col-lg-2 text-center">Quantity</th>
+                    <th class="col-xs-2 col-lg-2 text-center">Price</th>
+                    <th class="col-xs-2 col-lg-2 text-center">Total</th>
+                    <th class="col-xs-2 col-lg-3"></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td class="col-xs-4 col-lg-3">
+                            <div class="media">
+                                <a class="thumbnail pull-left" href="#">
+                                    <img class="media-object" src="data:image/png;base64,@item.ImageData" style="width: 72px; height: 72px;" />
+                                </a>
+                                <div class="media-body">
+                                    <h4 class="media-heading"><a href="#">@item.ProductName</a></h4>
+                                    <span>Color: </span><span class="text-success"><strong>@item.Color</strong></span><br />
+                                    <span>Size: </span><span class="text-success"><strong>@item.Size</strong></span>
+                                </div>
+                            </div>
+                        </td>
+                        <td class="col-xs-2 col-lg-2 text-center"><strong>@item.Quantity</strong></td>
+                        <td class="col-xs-2 col-lg-2 text-center"><strong>@item.Price.ToString("C")</strong></td>
+                        <td class="col-xs-2 col-lg-2 text-center"><strong>@item.ItemTotal.ToString("C")</strong></td>
+                        <td class="col-xs-2 col-lg-3">
+                            <form asp-action="RemoveCartItem" asp-controller="Checkout" method="post">
+                                @Html.AntiForgeryToken() <!-- Include anti-forgery token -->
+                                <input type="hidden" name="cartItemId" value="@item.CartId" />
+                                <button type="submit" class="btn btn-danger">Remove</button>
+                            </form>
+                        </td>
+                    </tr>
+                }
 
-                            </tr>
-                        }
+                <!-- Additional rows for summary -->
+                <tr>
+                    <td>   </td>
+                    <td>   </td>
+                    <td>   </td>
+                    <td><h5>Subtotal</h5></td>
+                    <td class="text-right"><h5><strong>@Model.First().GrandTotal.ToString("C")</strong></h5></td>
+                </tr>
+            </tbody>
+        </table>
 
-                        <!-- Additional rows for summary -->
-                        <tr>
-                            <td>   </td>
-                            <td>   </td>
-                            <td>   </td>
-                            <td><h5>Subtotal</h5></td>
-                            <td class="text-right"><h5><strong>@Model.First().GrandTotal.ToString("C")</strong></h5></td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-        </div>
     </div>
-}
+</div>

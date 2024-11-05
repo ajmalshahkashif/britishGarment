@@ -1,9 +1,7 @@
-﻿@* View for the ViewProductDetails action result *@
-@model CommonModule.DB.Product
+﻿@model CommonModule.DB.Product
 
 @{
     Layout = "~/Views/Shared/_Layout.cshtml";
-
 }
 
 <!DOCTYPE html>
@@ -12,27 +10,14 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>Product Details</title>
-    <!-- Tell the browser to be responsive to screen width -->
     <meta name="viewport" content="width=device-width, initial-scale=1">
-
-    <!-- Font Awesome -->
-    @* <link href="~/css/all.min.css" rel="stylesheet" /> this font awesome provided by adminLTE is not working*@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-
-
-
-    <!-- Ionicons -->
-    <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
-    <!-- overlayScrollbars -->
     <link href="~/css/adminlte.min.css" rel="stylesheet" />
+    <link href="~/lib/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" />
 
-    <!-- Google Font: Source Sans Pro -->
 </head>
 <body>
-    <!-- Site wrapper -->
-    <!-- Content Wrapper. Contains page content -->
     <div class="">
-        <!-- Content Header (Page header) -->
         <section class="content-header">
             <div class="container-fluid">
                 <div class="row mb-2">
@@ -46,64 +31,82 @@
                         </ol>
                     </div>
                 </div>
-            </div><!-- /.container-fluid -->
+            </div>
         </section>
 
-        <!-- Main content -->
         <section class="content">
-
-            <!-- Default box -->
             <div class="card card-solid">
                 <div class="card-body">
                     <div class="row">
                         <div class="col-12 col-sm-6">
-                            <h3 class="d-inline-block d-sm-none">LOWA Men’s Renegade GTX Mid Hiking Boots Review</h3>
+                            <h3 class="d-inline-block d-sm-none">@Model.Name</h3>
                             <div class="col-12">
-
                                 <img src="data:image/png;base64,@(Convert.ToBase64String(Model.ProductImages.First().Image))"
                                      class="product-image" alt="@Model.Name" style="height:500px" />
                             </div>
-
-
                             <div class="col-12 product-image-thumbs">
-                                <div class="product-image-thumb active"><img src="~/image/prod-1.jpg" alt="Product Image"></div>
-                                <div class="product-image-thumb"><img src="~/image/prod-1.jpg" alt="Product Image"></div>
-                                <div class="product-image-thumb"><img src="~/image/prod-2.jpg" alt="Product Image"></div>
-                                <div class="product-image-thumb"><img src="~/image/prod-2.jpg" alt="Product Image"></div>
-                                <div class="product-image-thumb"><img src="~/image/prod-2.jpg" alt="Product Image"></div>
+                                @foreach (var img in Model.ProductImages)
+                                {
+                                    <div class="product-image-thumb"><img src="data:image/png;base64,@(Convert.ToBase64String(img.Image))" alt="Product Image"></div>
+                                }
                             </div>
                         </div>
+
                         <div class="col-12 col-sm-6">
                             <h3 class="my-3">@Model.Name</h3>
                             <p>@Model.ShortDescription</p>
-
                             <hr>
+
                             <h4>Available Colors</h4>
+                            @if (ViewBag.productColor != null && ((List<ProductsViewModel.ColorViewModel>)ViewBag.productColor).Any())
+                            {
+                                <div class="btn-group" role="group" aria-label="Basic radio toggle button group">
+                                    @for (int i = 0; i < ((List<ProductsViewModel.ColorViewModel>)ViewBag.productColor).Count; i++)
+                                    {
+                                        var color = ((List<ProductsViewModel.ColorViewModel>)ViewBag.productColor)[i];
+                                        <input type="radio" class="btn-check" name="color_option" id="color_@color.Id" value="@color.Id" autocomplete="off" @(i == 0 ? "checked" : "")>
+                                        <label class="btn btn-outline-primary" style="background:#d3b7b7; color: #5e645e; border: 1px solid white; margin-right: 5px;" for="color_@color.Id">
+                                            @color.Name<br>
+                                            <i class="fas fa-circle fa-2x text-@color.RgbColor.ToLower()"></i>
+                                        </label>
+                                    }
+                                </div>
+                            }
+                            else
+                            {
+                                <p class="text-danger">No colors available for this product.</p>
+                            }
 
-                            <div class="btn-group btn-group-toggle" data-toggle="buttons">
-                                @foreach (var color in ViewBag.productColor)
-                                {
-                                    <label class="btn btn-default text-center">
-                                        <input type="radio" name="color_option" autocomplete="off" value="@color.Id">@color.Name<br>
-                                        <i class="fas fa-circle fa-2x text-@color.Name.ToLower()"></i>
-                                    </label>
-                                }
-                            </div>
+                            <br />
+                            <br />
 
-                            <h4 class="mt-3">Size <small>Available Sizes</small></h4>
+                            <h4>Available Sizes</h4>
+                            @if (ViewBag.productSizes != null && ((List<ProductsViewModel.SizeViewModel>)ViewBag.productSizes).Any())
+                            {
+                                <div class="btn-group" role="group" aria-label="Basic radio toggle button group">
+                                    @for (int i = 0; i < ((List<ProductsViewModel.SizeViewModel>)ViewBag.productSizes).Count; i++)
+                                    {
+                                        var size = ((List<ProductsViewModel.SizeViewModel>)ViewBag.productSizes)[i];
+                                        <input type="radio" class="btn-check" name="size_option" id="color_@size.Id" value="@size.Id" autocomplete="off" @(i == 0 ? "checked" : "")>
+                                        <label class="btn btn-outline-primary" style="background:red" for="color_@size.Id">
+                                            @size.Name<br>
+                                            <i class="fas fa-circle fa-2x"></i>
+                                        </label>
+                                    }
+                                </div>
+                            }
+                            else
+                            {
+                                <p class="text-danger">No size available for this product.</p>
+                            }
 
-                            <div class="btn-group btn-group-toggle" data-toggle="buttons">
-                                @foreach (var size in ViewBag.productSizes)
-                                {
-                                    <label class="btn btn-default text-center">
-                                        <input type="radio" name="size_option" autocomplete="off" value="@size.Id">
-                                        <span class="text-xl">@size.Name</span>
-                                        <br>
-                                        Small
-                                    </label>
-                                }
 
-                            </div>
+
+
+
+
+
+
 
                             <div class="bg-gray py-2 px-3 mt-4">
                                 <h2 class="mb-0">
@@ -114,74 +117,61 @@
                                 </h4>
                             </div>
 
-
                             <div class="mt-4">
-                                <div id="addToCartButton" class="btn btn-primary btn-lg btn-flat" type="button">
-                                    <i class="fas fa-cart-plus fa-lg mr-2"></i>
-                                    Add to Cart
-                                </div>
+                                <button id="addToCartButton"
+                                        class="btn btn-primary btn-lg btn-flat"
+                                        type="button"
+                                @(ViewBag.productColor == null || !((List<ProductsViewModel.ColorViewModel>)ViewBag.productColor).Any() ||
+                                    ViewBag.productSizes == null || !((List<ProductsViewModel.SizeViewModel>)ViewBag.productSizes).Any() ? "disabled" : "")>
+                                    <i class="fas fa-cart-plus fa-lg mr-2"></i> Add to Cart
+                                </button>
+
                             </div>
-
-
-                            <div class="mt-4 product-share">
-                                <a href="#" class="text-gray">
-                                    <i class="fab fa-facebook-square fa-2x"></i>
-                                </a>
-                                <a href="#" class="text-gray">
-                                    <i class="fab fa-twitter-square fa-2x"></i>
-                                </a>
-                                <a href="#" class="text-gray">
-                                    <i class="fas fa-envelope-square fa-2x"></i>
-                                </a>
-                                <a href="#" class="text-gray">
-                                    <i class="fas fa-rss-square fa-2x"></i>
-                                </a>
-                            </div>
-
                         </div>
-                    </div>
-                    <div class="row mt-4">
-                        <nav class="w-100">
-                            <div class="nav nav-tabs" id="product-tab" role="tablist">
-                                <a class="nav-item nav-link active" id="product-desc-tab" data-toggle="tab" href="#product-desc" role="tab" aria-controls="product-desc" aria-selected="true">Description</a>
-                            </div>
-                        </nav>
-                        <div class="tab-content p-3" id="nav-tabContent">
-                            <div class="tab-pane fade show active" id="product-desc" role="tabpanel" aria-labelledby="product-desc-tab"> Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi vitae condimentum erat. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Sed posuere, purus at efficitur hendrerit, augue elit lacinia arcu, a eleifend sem elit et nunc. Sed rutrum vestibulum est, sit amet cursus dolor fermentum vel. Suspendisse mi nibh, congue et ante et, commodo mattis lacus. Duis varius finibus purus sed venenatis. Vivamus varius metus quam, id dapibus velit mattis eu. Praesent et semper risus. Vestibulum erat erat, condimentum at elit at, bibendum placerat orci. Nullam gravida velit mauris, in pellentesque urna pellentesque viverra. Nullam non pellentesque justo, et ultricies neque. Praesent vel metus rutrum, tempus erat a, rutrum ante. Quisque interdum efficitur nunc vitae consectetur. Suspendisse venenatis, tortor non convallis interdum, urna mi molestie eros, vel tempor justo lacus ac justo. Fusce id enim a erat fringilla sollicitudin ultrices vel metus. </div>
+
+                        <div class="mt-4 product-share">
+                            <a href="#" class="text-gray">
+                                <i class="fab fa-facebook-square fa-2x"></i>
+                            </a>
+                            <a href="#" class="text-gray">
+                                <i class="fab fa-twitter-square fa-2x"></i>
+                            </a>
+                            <a href="#" class="text-gray">
+                                <i class="fas fa-envelope-square fa-2x"></i>
+                            </a>
+                            <a href="#" class="text-gray">
+                                <i class="fas fa-rss-square fa-2x"></i>
+                            </a>
                         </div>
                     </div>
                 </div>
-                <!-- /.card-body -->
+                <div class="row mt-4">
+                    <nav class="w-100">
+                        <div class="nav nav-tabs" id="product-tab" role="tablist">
+                            <a class="nav-item nav-link active" id="product-desc-tab" data-toggle="tab" href="#product-desc" role="tab" aria-controls="product-desc" aria-selected="true">Description</a>
+                        </div>
+                    </nav>
+                    <div class="tab-content p-3" id="nav-tabContent">
+                        <div class="tab-pane fade show active" id="product-desc" role="tabpanel" aria-labelledby="product-desc-tab">
+                            @Model.ShortDescription
+                        </div>
+                    </div>
+                </div>
             </div>
-            <!-- /.card -->
-
         </section>
-        <!-- /.content -->
     </div>
-    <!-- /.content-wrapper -->
 
     <footer class="main-footer">
         <div class="float-right d-none d-sm-block">
             <b>Version</b> 3.0.1
         </div>
-        <strong>Copyright &copy; 2014-2019 <a href="http://adminlte.io">AdminLTE.io</a>.</strong> All rights
-        reserved.
+        <strong>Copyright &copy; 2014-2019 <a href="http://adminlte.io">AdminLTE.io</a>.</strong> All rights reserved.
     </footer>
 
-    <!-- Control Sidebar -->
-    <aside class="control-sidebar control-sidebar-dark">
-        <!-- Control sidebar content goes here -->
-    </aside>
-    <!-- /.control-sidebar -->
-    <!-- ./wrapper -->
-    <!-- jQuery -->
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
-    <!-- Bootstrap 4 -->
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-    <!-- AdminLTE App -->
     <script src="~/js/adminlte.min.js"></script>
-    <!-- AdminLTE for demo purposes -->
-    <script src="~/js/demo.js"></script>
+
 
     <script>
         document.getElementById("addToCartButton").addEventListener("click", function () {
@@ -207,5 +197,7 @@
             });
         });
     </script>
+
 </body>
 </html>
+

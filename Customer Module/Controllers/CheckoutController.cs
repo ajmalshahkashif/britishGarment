@@ -63,20 +63,18 @@ namespace Customer_Module.Controllers
 
             var cart = cartItem.Cart;
 
+
             // Remove ProductColor and ProductSize records related to this cartItem
             var productColor = _context.ProductColors
-                .FirstOrDefault(pc => pc.ProductId == cartItem.ProductId && pc.ColorId == cartItem.ColorId);
-            var productSize = _context.ProductSizes
-                .FirstOrDefault(ps => ps.ProductId == cartItem.ProductId && ps.SizeId == cartItem.SizeId);
+                .FirstOrDefault(pc => pc.ProductId == cartItem.ProductId && pc.ColorId == cartItem.ColorId && pc.IsAddedToCart == true);
 
-            if (productColor != null)
-            {
-                _context.ProductColors.Remove(productColor);
-            }
-            if (productSize != null)
-            {
-                _context.ProductSizes.Remove(productSize);
-            }
+            var productSize = _context.ProductSizes
+                .FirstOrDefault(ps => ps.ProductId == cartItem.ProductId && ps.SizeId == cartItem.SizeId && ps.IsAddedToCart == true);
+
+            //re-enable these color & size, so that they are available for user add-to-cart process
+            productColor.IsAddedToCart = false;
+            productSize.IsAddedToCart = false;
+
 
             // Remove the CartItem
             _context.CartItems.Remove(cartItem);
@@ -98,7 +96,10 @@ namespace Customer_Module.Controllers
             cart.UpdatedAt = DateTime.Now;
             _context.SaveChanges();
 
-            return RedirectToAction("CartItemsListing");
+            var detaultCategory = _context.Products.Find(cartItem.ProductId).CategoryId;
+           
+
+            return RedirectToAction("ProductListing", "ProductDetails", new { categoryId = detaultCategory });
         }
 
 
