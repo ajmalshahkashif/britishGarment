@@ -1,0 +1,96 @@
+﻿@model Admin_Module.Models.PurchasesViewModel
+
+@{
+    ViewBag.Title = "View Purchases";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@using (Html.BeginForm())
+{
+    <div class="content-header">
+        <div class="container-fluid">
+            <div class="row mb-2">
+                <div class="col-md-6">
+                    <h1 class="m-0 text-dark">Purchases Details</h1>
+                </div>
+                <div class="col-md-6">
+                    <ol class="breadcrumb float-sm-right">
+                        <li class="breadcrumb-item">@Html.ActionLink("All Purchases", "AllPurchases", "Purchases")</li>
+                        <li class="breadcrumb-item active">Purchases Details</li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-12">
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+            <!-- Product Name -->
+            <div class="mb-3 row">
+                <label class="col-md-2 col-form-label">Product</label>
+                <div class="col-md-6">
+                    <p class="form-control-plaintext">@Model.ProductName</p>
+                </div>
+            </div>
+
+            <!-- Vendor Name -->
+            <div class="mb-3 row">
+                <label class="col-md-2 col-form-label">Vendor</label>
+                <div class="col-md-6">
+                    <p class="form-control-plaintext">@Model.VendorName</p>
+                </div>
+            </div>
+
+            <!-- Purchase Date -->
+            <div class="mb-3 row">
+                <label class="col-md-2 col-form-label">Purchase Date</label>
+                <div class="col-md-6">
+                    <p class="form-control-plaintext">@Model.PurchaseDate.ToString("yyyy-MM-dd")</p>
+                </div>
+            </div>
+
+
+            <!-- Quantity -->
+            <div class="mb-3 row">
+                <label class="col-md-2 col-form-label">Quantity</label>
+                <div class="col-md-6">
+                    <p class="form-control-plaintext">@Model.Quantity</p>
+                </div>
+            </div>
+
+            <!-- Unit Price -->
+            <div class="mb-3 row">
+                <label class="col-md-2 col-form-label">Unit Price</label>
+                <div class="col-md-6">
+                    <p class="form-control-plaintext">@Model.UnitPrice</p>
+                </div>
+            </div>
+
+            <!-- Total Amount -->
+            <div class="mb-3 row">
+                <label class="col-md-2 col-form-label">Total Amount</label>
+                <div class="col-md-6">
+                    <p class="form-control-plaintext">@Model.TotalAmount</p>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+}
+
+
+<div>
+    @Html.ActionLink("Back to List", "AllPurchases", new { @class = "btn btn-link" })
+</div>
+
+<script>
+    $(document).ready(function () {
+        window.setTimeout(function () {
+            $(".alert").fadeTo(500, 0).slideUp(500, function () {
+                $(this).remove();
+            });
+        }, 2000);
+    });
+</script>

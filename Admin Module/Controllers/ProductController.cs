@@ -160,20 +160,39 @@ namespace Admin_Module.Controllers
         }
 
 
-        public IActionResult AllProducts(int page = 1, int pageSize = 10)
+        public IActionResult AllProducts(int page = 1, int pageSize = 10, string searchTerm = "", int? categoryId = null)
         {
-            var products = _context.Products
-                .OrderBy(c => c.Name) // Optional: Order by Name or other property
+            var productsQuery = _context.Products.AsQueryable();
+
+            // Filter by search term
+            if (!string.IsNullOrEmpty(searchTerm))
+            {
+                productsQuery = productsQuery.Where(p => p.Name.Contains(searchTerm));
+            }
+
+            // Filter by category
+            if (categoryId.HasValue)
+            {
+                productsQuery = productsQuery.Where(p => p.CategoryId == categoryId.Value);
+            }
+
+            // Pagination
+            var products = productsQuery
+                .OrderBy(p => p.Name)
                 .Skip((page - 1) * pageSize)
                 .Take(pageSize)
                 .ToList();
 
-            // Get total count for pagination
-            int totalProductsCount = _context.Products.Count();
+            int totalProductsCount = productsQuery.Count();
 
             ViewBag.CurrentPage = page;
             ViewBag.PageSize = pageSize;
             ViewBag.totalProductsCount = totalProductsCount;
+
+            // Pass active categories to ViewBag
+            ViewBag.productCategories = new SelectList(_context.ProductCategories.Where(c => c.IsActive), "CategoryId", "Name");
+            ViewBag.SearchTerm = searchTerm;
+            ViewBag.SelectedCategoryId = categoryId;
 
             return View(products);
         }

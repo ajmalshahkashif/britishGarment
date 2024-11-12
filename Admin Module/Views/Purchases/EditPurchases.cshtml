@@ -1,0 +1,189 @@
+﻿@model Admin_Module.Models.PurchasesViewModel
+
+@{
+    ViewBag.Title = "Edit Purchases";
+
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@using (Html.BeginForm("EditPurchases", "Purchases", FormMethod.Post))
+
+
+
+{
+    @Html.AntiForgeryToken()
+
+    @Html.Partial("_SuccessMessage")
+
+    <div class="content-header">
+        <div class="container-fluid">
+            <div class="row mb-2">
+                <div class="col-md-6">
+                    <h1 class="m-0 text-dark">Edit Purchases</h1>
+                </div>
+                <div class="col-md-6">
+                    <ol class="breadcrumb float-sm-right">
+                        <li class="breadcrumb-item">@Html.ActionLink("All Purchases", "AllPurchases", "Purchases")</li>
+                        <li class="breadcrumb-item active">Edit Purchases</li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-12">
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+            <!-- Category Selection -->
+            <div class="mb-3 row">
+                <div class="col-md-2">
+                    <label class="col-form-label">Category</label>
+                </div>
+                <div class="col-md-3">
+                    @Html.DropDownListFor(model => model.CategoryId, (SelectList)ViewBag.categoriesData, new { @class = "form-control", @id = "categoryDropdown" })
+                    @Html.ValidationMessageFor(model => model.CategoryId, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <!-- Product Selection -->
+            <div class="mb-3 row">
+                <div class="col-md-2">
+                    <label class="col-form-label">Product</label>
+                </div>
+                <div class="col-md-3">
+                    <!-- Display the Product Name and set the ProductId in a hidden field -->
+                    <input type="text" id="ProductSearch" class="form-control" placeholder="Start typing to search..." value="@Model.ProductName" onkeyup="searchProducts()" />
+                    <div id="productSuggestions" class="list-group mt-2" style="display:none;"></div>
+                    <input type="hidden" id="ProductId" name="ProductId" value="@Model.ProductId" />
+                </div>
+            </div>
+
+            <!-- Vendor Search Input -->
+            <div class="mb-3 row">
+                <div class="col-md-2">
+                    <label class="col-form-label">Vendor</label>
+                </div>
+                <div class="col-md-3">
+                    <!-- Display the Vendor Name and set the VendorId in a hidden field -->
+                    <input type="text" id="VendorSearch" class="form-control" placeholder="Search vendor by last name..." value="@Model.VendorName" onkeyup="searchVendor()" />
+                    <div id="vendorSuggestions" class="list-group mt-2" style="display:none;"></div>
+                    <input type="hidden" id="VendorId" name="VendorId" value="@Model.VendorId" />
+                </div>
+            </div>
+
+
+            <!-- Purchase Date -->
+            <div class="mb-3 row">
+                <div class="col-md-2">
+                    <label class="col-form-label">Purchase Date</label>
+                </div>
+                <div class="col-md-3">
+                    @Html.TextBoxFor(model => model.PurchaseDate, "{0:yyyy-MM-dd}", new { @class = "form-control", @type = "date" })
+                </div>
+            </div>
+
+            <!-- Quantity -->
+            <div class="mb-3 row">
+                <div class="col-md-2">
+                    <label class="col-form-label">Quantity</label>
+                </div>
+                <div class="col-md-3">
+                    @Html.TextBoxFor(model => model.Quantity, new { @class = "form-control", type = "number" })
+                </div>
+            </div>
+
+            <!-- Unit Price -->
+            <div class="mb-3 row">
+                <div class="col-md-2">
+                    <label class="col-form-label">Unit Price</label>
+                </div>
+                <div class="col-md-3">
+                    @Html.TextBoxFor(model => model.UnitPrice, new { @class = "form-control", type = "number" })
+                </div>
+            </div>
+            <div class="row">
+                <div class="offset-md-2 col-md-10">
+                    <input type="submit" value="Save" class="btn btn-primary" />
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "AllPurchases", new { @class = "btn btn-link" })
+</div>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        window.setTimeout(function () {
+            $(".alert").fadeTo(500, 0).slideUp(500, function () {
+                $(this).remove();
+            });
+        }, 2000);
+    });
+
+    function searchProducts() {
+        const searchTerm = $('#ProductSearch').val();
+        const categoryId = $('#categoryDropdown').val();
+        if (searchTerm.length >= 2) {
+            $.ajax({
+                url: '@Url.Action("SearchProducts", "Purchases")',
+                type: 'GET',
+                data: { searchTerm: searchTerm, categoryId: categoryId },
+                success: function (data) {
+                    let suggestions = $('#productSuggestions');
+                    suggestions.empty();
+                    if (data.length > 0) {
+                        suggestions.show();
+                        data.forEach(product => {
+                            suggestions.append(`<a href="#" class="list-group-item list-group-item-action" onclick="selectProduct(${product.productId}, '${product.name}')">${product.name}</a>`);
+                        });
+                    } else {
+                        suggestions.hide();
+                    }
+                },
+                error: function (xhr, status, error) {
+                    console.error("Error:", error);
+                }
+            });
+        } else {
+            $('#productSuggestions').hide();
+        }
+    }
+
+    function selectProduct(productId, productName) {
+        $('#ProductSearch').val(productName); // Set the text input with product name
+        $('#ProductId').val(productId);      // Set hidden input with product ID
+        $('#productSuggestions').hide();     // Hide suggestions list
+    }
+
+    const vendorUsers = @Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject(ViewBag.vendorUsers));
+
+    function searchVendor() {
+        const searchTerm = $('#VendorSearch').val().toLowerCase();
+        const suggestions = $('#vendorSuggestions');
+        suggestions.empty();
+        if (searchTerm.length >= 2) {
+            const matchedVendors = vendorUsers.filter(vendor => vendor.LastName.toLowerCase().includes(searchTerm));
+            if (matchedVendors.length > 0) {
+                suggestions.show();
+                matchedVendors.forEach(vendor => {
+                    suggestions.append(`<a href="#" class="list-group-item list-group-item-action" onclick="selectVendor(${vendor.UserId}, '${vendor.LastName}')">${vendor.LastName}</a>`);
+                });
+            } else {
+                suggestions.hide();
+            }
+        } else {
+            suggestions.hide();
+        }
+    }
+
+    function selectVendor(userId, lastName) {
+        $('#VendorSearch').val(lastName); // Set the text input with vendor last name
+        $('#VendorId').val(userId);       // Set hidden input with vendor ID
+        $('#vendorSuggestions').hide();   // Hide suggestions list
+    }
+
+</script>

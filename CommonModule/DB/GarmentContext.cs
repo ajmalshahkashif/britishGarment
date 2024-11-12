@@ -302,9 +302,11 @@ public partial class GarmentContext : DbContext
 
             entity.HasIndex(e => e.RoleId, "IX_User_RoleId");
 
+            entity.Property(e => e.Address).HasMaxLength(1000);
             entity.Property(e => e.Email).HasMaxLength(100);
             entity.Property(e => e.FirstName).HasMaxLength(50);
             entity.Property(e => e.LastName).HasMaxLength(50);
+            entity.Property(e => e.MobileNo).HasMaxLength(100);
             entity.Property(e => e.Username).HasMaxLength(40);
 
             entity.HasOne(d => d.Role).WithMany(p => p.Users)

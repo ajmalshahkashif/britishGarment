@@ -14,13 +14,8 @@
 {
     @Html.AntiForgeryToken()
 
-    @if (TempData["SuccessMessage"] != null)
+    @Html.Partial("_SuccessMessage")
 
-    {
-        <div class="alert alert-success" role="alert">
-            @TempData["SuccessMessage"]
-        </div>
-    }
     <div class="content-header">
         <div class="container-fluid">
             <div class="row mb-2">
@@ -176,6 +171,17 @@
                         </button>
                     }
                 </div>
+            </div>
+
+            <div class="mb-3 row">
+                @Html.LabelFor(model => model.DetailedDescription, htmlAttributes: new { @class = "col-md-1 col-form-label" })
+                <div class="col-md-3">
+                    @Html.TextAreaFor(model => model.DetailedDescription, new { @class = "form-control", rows = 5, cols = 50 })
+                    @Html.ValidationMessageFor(model => model.DetailedDescription, "", new { @class = "text-danger" })
+                </div>
+                <div class="col-md-2"></div>
+                <div class="col-md-1"> </div>
+                <div class="col-md-3"> </div>
             </div>
 
             <!-- 8th Row Multiple Images selection -->

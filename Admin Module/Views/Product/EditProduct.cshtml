@@ -10,18 +10,8 @@
 {
     @Html.AntiForgeryToken()
 
-    @if (TempData["SuccessMessage"] != null)
+    @Html.Partial("_SuccessMessage")
 
-    {
-        <br />
-        <div class="alert alert-success alert-dismissible fade show" role="alert">
-            @TempData["SuccessMessage"]
-
-            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-            </button>
-        </div>
-    }
     <div class="content-header">
         <div class="container-fluid">
             <div class="row mb-2">
@@ -124,12 +114,23 @@
                 </div>
                 <div class="col-md-3">
                     @Html.DropDownListFor(model => model.Gender, new SelectList(new List<SelectListItem> {
-                            new SelectListItem { Value = "Male", Text = "Male" },
-                            new SelectListItem { Value = "Female", Text = "Female" },
-                            new SelectListItem { Value = "Unisex", Text = "Unisex" }
-                        }, "Value", "Text"), new { @class = "form-control" })
+                new SelectListItem { Value = "Male", Text = "Male" },
+                new SelectListItem { Value = "Female", Text = "Female" },
+                new SelectListItem { Value = "Unisex", Text = "Unisex" }
+                }, "Value", "Text"), new { @class = "form-control" })
                     @Html.ValidationMessageFor(model => model.Gender, "", new { @class = "text-danger" })
                 </div>
+            </div>
+
+            <div class="mb-3 row">
+                @Html.LabelFor(model => model.FullDescription, htmlAttributes: new { @class = "col-md-1 col-form-label" })
+                <div class="col-md-3">
+                    @Html.EditorFor(model => model.FullDescription, new { htmlAttributes = new { @class = "form-control", rows = 5, cols = 50 } })
+                    @Html.ValidationMessageFor(model => model.FullDescription, "", new { @class = "text-danger" })
+                </div>
+                <div class="col-md-2"></div>
+                <div class="col-md-1"></div>
+                <div class="col-md-3"></div>
             </div>
 
             <!-- Seventh Row (Size Selection and Active Checkbox) -->

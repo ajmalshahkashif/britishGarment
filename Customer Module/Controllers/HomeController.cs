@@ -1,19 +1,26 @@
+using CommonModule.DB;
 using Customer_Module.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using System.Diagnostics;
 
 namespace Customer_Module.Controllers
 {
-    public class HomeController : Controller
+    public class HomeController : BaseController
     {
 
-        public HomeController()
+        public HomeController(GarmentContext context) : base(context)
         {
         }
 
         public IActionResult Index()
         {
-            return View();
+            var allProducts = _context.Products
+              .Include(p => p.ProductImages)
+              .Where(p => p.CreatedAt > DateTime.Now.AddDays(-30))
+              .ToList();
+
+            return View(allProducts);
         }
 
        

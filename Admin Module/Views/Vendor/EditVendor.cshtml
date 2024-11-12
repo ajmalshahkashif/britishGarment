@@ -1,0 +1,92 @@
+﻿@model Admin_Module.Models.VendorEditViewModel
+
+@{
+    ViewBag.Title = "Edit Vendor";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@using (Html.BeginForm("EditVendor", "Vendor", FormMethod.Post))
+{
+    @Html.AntiForgeryToken()
+
+    @Html.Partial("_SuccessMessage")
+
+    <div class="content-header">
+        <div class="container-fluid">
+            <div class="row mb-2">
+                <div class="col-md-6">
+                    <h1 class="m-0 text-dark">Edit Vendor</h1>
+                </div>
+                <div class="col-md-6">
+                    <ol class="breadcrumb float-sm-right">
+                        <li class="breadcrumb-item">@Html.ActionLink("All Vendors", "AllVendor", "Vendor")</li>
+                        <li class="breadcrumb-item active">Edit Vendor</li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-12">
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+            <div class="mb-3 row">
+                <div class="col-md-2">
+                    @Html.LabelFor(model => model.FirstName, htmlAttributes: new { @class = "col-form-label" })
+                </div>
+                <div class="col-md-6">
+                    @Html.EditorFor(model => model.FirstName, new { htmlAttributes = new { @class = "form-control" } })
+                </div>
+            </div>
+
+            <div class="mb-3 row">
+                <div class="col-md-2">
+                    @Html.LabelFor(model => model.LastName, htmlAttributes: new { @class = "col-form-label" })
+                    <span class="text-danger ml-1">*</span>
+                </div>
+                <div class="col-md-6">
+                    @Html.EditorFor(model => model.LastName, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.LastName, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="mb-3 row">
+                <div class="col-md-2">
+                    @Html.LabelFor(model => model.Email, htmlAttributes: new { @class = "col-form-label" })
+                    <span class="text-danger ml-1">*</span>
+                </div>
+                <div class="col-md-6">
+                    @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control"} })
+                    @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="mb-3 row">
+                <div class="col-md-2">
+                    @Html.LabelFor(model => model.MobileNo, htmlAttributes: new { @class = "col-form-label" })
+                </div>
+                <div class="col-md-6">
+                    @Html.EditorFor(model => model.MobileNo, new { htmlAttributes = new { @class = "form-control" } })
+                </div>
+            </div>
+
+            <div class="mb-3 row">
+                @Html.LabelFor(model => model.Address, htmlAttributes: new { @class = "col-md-2 col-form-label" })
+                <div class="col-md-6">
+                    @Html.TextAreaFor(model => model.Address, new { @class = "form-control",  rows = 5, cols = 50 })
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="offset-md-2 col-md-10">
+                    <input type="submit" value="Save Changes" class="btn btn-primary" />
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "AllVendor", new { @class = "btn btn-link" })
+</div>

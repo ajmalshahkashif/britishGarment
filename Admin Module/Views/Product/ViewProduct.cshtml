@@ -20,45 +20,45 @@
             </div>
         </div>
     </div>
-     <div class="row">
+    <div class="row">
         <div class="col-12">
             @Html.ValidationSummary(true, "", new { @class = "text-danger" })
 
             <!-- One Row Name,Category -->
-        <div class="mb-3 row">
-            <label class="col-md-1 col-form-label">Product Name</label>
-            <div class="col-md-3">
-                <p class="form-control-plaintext">@Model.Name</p>
+            <div class="mb-3 row">
+                <label class="col-md-2 col-form-label">Product Name</label>
+                <div class="col-md-3">
+                    <p class="form-control-plaintext">@Model.Name</p>
+                </div>
+                <div class="col-md-1"></div>
+                <label class="col-md-2 col-form-label">Category</label>
+                <div class="col-md-3">
+                    <p class="form-control-plaintext">@Model.ProductCategoryName</p>
+                </div>
             </div>
-                <div class="col-md-2"></div>
-            <label class="col-md-1 col-form-label">Category</label>
-            <div class="col-md-3">
-                <p class="form-control-plaintext">@Model.ProductCategoryName</p>
-            </div>
-        </div>
 
             <!-- Two Row Price,Gender -->
-         <div class="mb-3 row">
-            <label class="col-md-1 col-form-label">Price</label>
-            <div class="col-md-3">
-                <p class="form-control-plaintext">@Model.Price</p>
-            </div>
-                <div class="col-md-2"></div>
-                <label class="col-md-1 col-form-label">Gender</label>
+            <div class="mb-3 row">
+                <label class="col-md-2 col-form-label">Price</label>
+                <div class="col-md-3">
+                    <p class="form-control-plaintext">@Model.Price</p>
+                </div>
+                <div class="col-md-1"></div>
+                <label class="col-md-2 col-form-label">Gender</label>
                 <div class="col-md-3">
                     <p class="form-control-plaintext">@Model.Gender</p>
                 </div>
-         </div>
+            </div>
 
             <!-- three Row Weight,Discount -->
             <div class="mb-3 row">
-                <label class="col-md-1 col-form-label">Weight (kg)</label>
+                <label class="col-md-2 col-form-label">Weight (kg)</label>
                 <div class="col-md-3">
                     <p class="form-control-plaintext">@Model.Weight</p>
                 </div>
-                <div class="col-md-2"></div>
+                <div class="col-md-1"></div>
 
-                <label class="col-md-1 col-form-label">Discount</label>
+                <label class="col-md-2 col-form-label">Discount</label>
                 <div class="col-md-3">
                     <p class="form-control-plaintext">@Model.Discount%</p>
                 </div>
@@ -66,12 +66,12 @@
 
             <!-- Four Row Length,Height -->
             <div class="mb-3 row">
-                <label class="col-md-1 col-form-label">Length (cm)</label>
+                <label class="col-md-2 col-form-label">Length (cm)</label>
                 <div class="col-md-3">
                     <p class="form-control-plaintext">@Model.Length</p>
                 </div>
-                <div class="col-md-2"></div>
-                <label class="col-md-1 col-form-label">Height (cm)</label>
+                <div class="col-md-1"></div>
+                <label class="col-md-2 col-form-label">Height (cm)</label>
                 <div class="col-md-3">
                     <p class="form-control-plaintext">@Model.Height</p>
                 </div>
@@ -79,12 +79,12 @@
 
             <!-- Five Row Stock,Status -->
             <div class="mb-3 row">
-                <label class="col-md-1 col-form-label">In Stock</label>
+                <label class="col-md-2 col-form-label">In Stock</label>
                 <div class="col-md-3">
                     <p class="form-control-plaintext">@Model.InStock</p>
                 </div>
-                <div class="col-md-2"></div>
-                <label class="col-md-1 col-form-label">Status</label>
+                <div class="col-md-1"></div>
+                <label class="col-md-2 col-form-label">Status</label>
                 <div class="col-md-3">
                     <p class="form-control-plaintext">@(Model.isActive ? "Active" : "InActive") </p>
                 </div>
@@ -92,14 +92,14 @@
 
             <!-- Six Row Inside your view, you can now display the selected sizes and selected colors  as follows: -->
             <div class="mb-3 row">
-                <label class="col-md-1 col-form-label">Sizes</label>
+                <label class="col-md-2 col-form-label">Sizes</label>
                 <div class="col-md-3">
                     <p class="form-control-plaintext">
                         @string.Join(", ", ViewBag.SelectedSizeNames) <!-- Display selected size names -->
                     </p>
                 </div>
-                <div class="col-md-2"></div>
-                <label class="col-md-1 col-form-label">Colors</label>
+                <div class="col-md-1"></div>
+                <label class="col-md-2 col-form-label">Colors</label>
                 <div class="col-md-3">
                     <p class="form-control-plaintext">
                         @string.Join(", ", ViewBag.SelectedColorNames) <!-- Display selected color names -->
@@ -109,13 +109,21 @@
 
             <!-- Seven Row Description -->
             <div class="mb-3 row">
-                <label class="col-md-1 col-form-label">Description</label>
+                <label class="col-md-2 col-form-label">Short Note</label>
                 <div class="col-md-10">
                     <p class="form-control-plaintext">@Model.ShortDescription</p>
                 </div>
             </div>
+
             <div class="mb-3 row">
-                <label class="col-md-1 col-form-label">Images</label>
+                <label class="col-md-2 col-form-label">Detail Description</label>
+                <div class="col-md-10">
+                    <p class="form-control-plaintext">@Model.FullDescription</p>
+                </div>
+            </div>
+
+            <div class="mb-3 row">
+                <label class="col-md-2 col-form-label">Images</label>
                 <div class="col-md-10" id="imagePreviewContainer" style="display:flex; flex-wrap:wrap; gap:10px;">
                     <!-- Image previews will be shown here -->
                     @if (Model.ProductImages != null && Model.ProductImages.Count > 0)
@@ -134,8 +142,8 @@
                 </div>
             </div>
 
+        </div>
     </div>
-</div>
 }
 <div>
     @Html.ActionLink("Back to List", "AllProducts", new { @class = "btn btn-link" })

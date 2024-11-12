@@ -31,6 +31,10 @@ public partial class User
 
     public DateTime? ResetTokenExpires { get; set; }
 
+    public string? MobileNo { get; set; }
+
+    public string? Address { get; set; }
+
     public virtual ICollection<Cart> Carts { get; set; } = new List<Cart>();
 
     public virtual ICollection<Purchase> Purchases { get; set; } = new List<Purchase>();
