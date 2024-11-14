@@ -159,8 +159,7 @@ namespace Admin_Module.Controllers
             return View(product);
         }
 
-
-        public IActionResult AllProducts(int page = 1, int pageSize = 10, string searchTerm = "", int? categoryId = null)
+        public IActionResult AllProducts(int page = 1, int pageSize = 10, string searchTerm = "", int? categoryId = null, bool lowStockItems = false)
         {
             var productsQuery = _context.Products.AsQueryable();
 
@@ -176,6 +175,12 @@ namespace Admin_Module.Controllers
                 productsQuery = productsQuery.Where(p => p.CategoryId == categoryId.Value);
             }
 
+            // Filter by low stock items if checkbox is checked
+            if (lowStockItems)
+            {
+                productsQuery = productsQuery.Where(p => p.InStock <= p.LowStockQuantity);
+            }
+
             // Pagination
             var products = productsQuery
                 .OrderBy(p => p.Name)
@@ -189,10 +194,11 @@ namespace Admin_Module.Controllers
             ViewBag.PageSize = pageSize;
             ViewBag.totalProductsCount = totalProductsCount;
 
-            // Pass active categories to ViewBag
+            // Pass additional values to ViewBag
             ViewBag.productCategories = new SelectList(_context.ProductCategories.Where(c => c.IsActive), "CategoryId", "Name");
             ViewBag.SearchTerm = searchTerm;
             ViewBag.SelectedCategoryId = categoryId;
+            ViewBag.LowStockItems = lowStockItems; // Pass lowStockItems to the view
 
             return View(products);
         }

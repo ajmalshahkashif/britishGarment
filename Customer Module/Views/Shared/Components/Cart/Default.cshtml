@@ -1,5 +1,5 @@
 ﻿@model CartDto
-
+<link href="~/lib/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" />
 <div class="top-cart-info">
     @if (Model?.Items != null && Model.Items.Any())
     {
@@ -49,7 +49,7 @@
                class="btn btn-default"
             @(Model?.Items == null || !Model.Items.Any() ? "disabled" : "")>View Cart</a>
 
-            <a href="shop-checkout.html"
+            <a href="@Url.Action("SelectPaymentMethod", "Checkout")"
                class="btn btn-primary"
             @(Model?.Items == null || !Model.Items.Any() ? "disabled" : "")>Checkout</a>
         </div>

@@ -35,6 +35,8 @@ public partial class Product
 
     public int? Discount { get; set; }
 
+    public int? LowStockQuantity { get; set; }
+
     public virtual ICollection<CartItem> CartItems { get; set; } = new List<CartItem>();
 
     public virtual ProductCategory Category { get; set; } = null!;

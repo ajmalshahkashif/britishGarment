@@ -9,6 +9,7 @@
 }
 <div class="container mt-4">
     @Html.Partial("_SuccessMessage")
+    
     <br />
 
     <div class="row mb-3">
@@ -18,6 +19,12 @@
 
         <div class="col-md-9">
             <form method="get" action="@Url.Action("AllProducts", "Product")" class="form-inline d-flex justify-content-end">
+                <!-- Low Stock Item Checkbox -->
+                <div class="form-group mr-2">
+                    <input type="checkbox" name="lowStockItems" value="true" @(ViewBag.LowStockItems ? "checked" : "") />
+                    <label for="lowStockItems">Low Stock Items</label>
+                </div>
+
                 <!-- Category Dropdown -->
                 <div class="form-group mr-2">
                     @Html.DropDownList("categoryId", (SelectList)ViewBag.productCategories, "All Categories", new { @class = "form-control", @value = ViewBag.SelectedCategoryId })

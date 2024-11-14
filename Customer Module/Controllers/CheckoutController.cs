@@ -97,10 +97,32 @@ namespace Customer_Module.Controllers
             _context.SaveChanges();
 
             var detaultCategory = _context.Products.Find(cartItem.ProductId).CategoryId;
-           
+
 
             return RedirectToAction("ProductListing", "ProductDetails", new { categoryId = detaultCategory });
         }
+
+
+        public IActionResult SelectPaymentMethod()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public IActionResult ProcessPaymentMethod(string paymentMethod)
+        {
+            if (paymentMethod == "Credit/Debit Card")
+            {
+                return RedirectToAction("CreditCardPayment");
+            }
+            else if (paymentMethod == "Cash on Delivery")
+            {
+                return RedirectToAction("CashOnDeliverySummary");
+            }
+
+            return RedirectToAction("CartItemsListing");
+        }
+
 
 
     }

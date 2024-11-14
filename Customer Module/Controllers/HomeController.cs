@@ -15,15 +15,30 @@ namespace Customer_Module.Controllers
 
         public IActionResult Index()
         {
-            var allProducts = _context.Products
-              .Include(p => p.ProductImages)
-              .Where(p => p.CreatedAt > DateTime.Now.AddDays(-30))
-              .ToList();
 
-            return View(allProducts);
+            // Get all products
+            var allProducts = _context.Products
+                .Include(p => p.ProductImages)
+                .ToList();
+
+            // Get products created in the past 30 days
+            var recentProducts = _context.Products
+                .Include(p => p.ProductImages)
+                .Where(p => p.CreatedAt >= DateTime.Now.AddDays(-30))
+                .ToList();
+
+            // Populate the ViewModel
+            var viewModel = new ProductViewModel
+            {
+                AllProducts = allProducts,
+                RecentProducts = recentProducts
+            };
+
+            return View(viewModel);
         }
 
-       
+
+
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()

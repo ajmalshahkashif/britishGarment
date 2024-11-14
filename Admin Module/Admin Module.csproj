@@ -12,7 +12,6 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <Content Remove="Views\Product\_SuccessMessage.cshtml" />
 	  <Content Remove="Views\Purchases\_SuccessMessage.cshtml" />
 	  <Content Remove="Views\Sales\_SuccessMessage.cshtml" />
 	  <Content Remove="Views\Vendor\_SuccessMessage.cshtml" />
@@ -28,13 +27,12 @@
 	  <None Include="Views\Category\AllCategories.cshtml" />
 	  <None Include="Views\Category\EditCategory.cshtml" />
 	  <None Include="Views\Category\ViewCategory.cshtml" />
-	  <None Include="Views\Category\_SuccessMessage.cshtml" />
+	  <None Include="Views\Shared\_SuccessMessage.cshtml" />
 	  <None Include="Views\Dashboard\Dashboard.cshtml" />
 	  <None Include="Views\Product\AddProduct.cshtml" />
 	  <None Include="Views\Product\AllProducts.cshtml" />
 	  <None Include="Views\Product\EditProduct.cshtml" />
 	  <None Include="Views\Product\ViewProduct.cshtml" />
-	  <None Include="Views\Product\_SuccessMessage.cshtml" />
 	  <None Include="Views\Purchases\_SuccessMessage.cshtml" />
 	  <None Include="Views\Sales\_SuccessMessage.cshtml" />
 	  <None Include="Views\Vendor\_SuccessMessage.cshtml" />
