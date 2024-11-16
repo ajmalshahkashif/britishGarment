@@ -19,7 +19,23 @@
     <link href="~/css/custom-font-sizes.css" rel="stylesheet" />
     <script src="~/js/jquery.min.js"></script>
 
+    <style>
+        .top-cart-block {
+            position: relative; /* Add relative positioning to the parent */
+        }
 
+        .search-dropdown {
+            position: absolute; /* Ensure the dropdown is positioned absolutely */
+            top: 100%; /* Position it directly below the input field */
+            left: 0;
+            right: 0;
+            z-index: 1000; /* Ensure the dropdown is above other elements */
+            background: white;
+            border: 1px solid #ccc;
+            width: 100%; /* Optional: set width of the dropdown */
+            display: none; /* Keep it hidden by default */
+        }
+    </style>
 </head>
 
 
@@ -54,7 +70,7 @@
             </div>
         </div>
     </div>
-    
+
     <!-- END TOP BAR -->
     <!-- BEGIN HEADER -->
     <div class="header">
@@ -475,8 +491,11 @@
                     <li class="dropdown dropdown-megamenu">
                         <div class="top-cart-block input-group">
                             <input type="text" name="query" class="form-control" placeholder="Search Category" style="height:32px;" />
-                            <button class="btn btn-primary" type="button" style="height:32px;">Search</button>
+                            
+                            <div class="search-dropdown" style="position: absolute; z-index: 1000; background: white; border: 1px solid #ccc; width: 192px; display: none;"></div>
                         </div>
+                        
+
                     </li>
 
 
@@ -487,7 +506,6 @@
     </div>
     <!-- Header END -->
     <!-- Main Content -->
-    <div class="search-dropdown" style="position: absolute; z-index: 1000; background: white; border: 1px solid #ccc; width: 100%; display: none;"></div>
     <div class="container mt-4">
         <main role="main" class="pb-3">
             @RenderBody()
