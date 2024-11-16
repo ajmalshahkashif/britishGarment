@@ -44,7 +44,7 @@ namespace Customer_Module.Controllers
             // Example: Mock data
             // Fetch the CategoryId based on the label
             var category = _context.ProductCategories
-                .Where(c => c.Name == query).ToList();
+                 .Where(c => c.Name.Contains(query)).Select(c => c.Name).ToList();
 
             return Json(category);
         }
