@@ -19,5 +19,7 @@ public partial class Sale
 
     public DateTime? UpdatedAt { get; set; }
 
+    public virtual User Customer { get; set; } = null!;
+
     public virtual ICollection<SaleDetail> SaleDetails { get; set; } = new List<SaleDetail>();
 }

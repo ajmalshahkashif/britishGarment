@@ -41,17 +41,26 @@ namespace Customer_Module.Controllers
         }
 
 
-        public IActionResult ProductListing(int categoryId)
+        public IActionResult ProductListing(string categoryLabel)
         {
+            // Fetch the CategoryId based on the label
+            var category = _context.ProductCategories
+                .FirstOrDefault(c => c.Name == categoryLabel);
 
+            if (category == null)
+            {
+                return NotFound("Category not found");
+            }
+
+            // Use the retrieved CategoryId to get products
             var allProducts = _context.Products
                 .Include(p => p.ProductImages)
-                .Where(p => p.CategoryId == categoryId)
+                .Where(p => p.CategoryId == category.CategoryId)
                 .ToList();
 
             return View(allProducts);
-
         }
+
 
         [HttpPost]
         public IActionResult AddToCart(int productId, int quantity, int sizeId, int colorId)

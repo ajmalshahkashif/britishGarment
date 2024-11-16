@@ -108,20 +108,97 @@ namespace Customer_Module.Controllers
             return View();
         }
 
+
         [HttpPost]
-        public IActionResult ProcessPaymentMethod(string paymentMethod)
+        public IActionResult AddSaleEntry()
         {
-            if (paymentMethod == "Credit/Debit Card")
+            // Get the current user's cart
+            var cart = _context.Carts
+                .Include(c => c.CartItems)
+                .ThenInclude(ci => ci.Product)
+                .FirstOrDefault(c => c.UserId == 1); // Replace with session/userId logic
+
+            if (cart == null || !cart.CartItems.Any())
             {
-                return RedirectToAction("CreditCardPayment");
-            }
-            else if (paymentMethod == "Cash on Delivery")
-            {
-                return RedirectToAction("CashOnDeliverySummary");
+                // Redirect to cart if empty
+                return RedirectToAction("CartItemsListing");
             }
 
-            return RedirectToAction("CartItemsListing");
+            // Calculate the total sale amount
+            var totalAmount = cart.CartItems.Sum(ci => ci.Quantity * ci.Price);
+
+            // Create a new sale entry
+            var sale = new Sale
+            {
+                CustomerId = 1, // Replace with session/userId logic
+                SaleDate = DateTime.Now,
+                TotalAmount = totalAmount,
+                PaymentMethod = "Credit Card", // Replace with selected payment method logic
+                CreatedAt = DateTime.Now,
+                UpdatedAt = DateTime.Now
+            };
+
+            // Add the sale entry to the database
+            _context.Sales.Add(sale);
+            _context.SaveChanges(); // Save to get the generated SaleId
+
+            // Create SaleDetails entries for each cart item
+            foreach (var cartItem in cart.CartItems)
+            {
+                var saleDetail = new SaleDetail
+                {
+                    SaleId = sale.SaleId, // Link to the Sale
+                    ProductId = cartItem.ProductId,
+                    Quantity = cartItem.Quantity,
+                    UnitPrice = cartItem.Price,
+                    TotalPrice = cartItem.Quantity * cartItem.Price
+                };
+                _context.SaleDetails.Add(saleDetail);
+            }
+
+            // Update product quantities and remove ProductColor records
+            foreach (var cartItem in cart.CartItems)
+            {
+                // Update product quantity
+                var product = _context.Products.FirstOrDefault(p => p.ProductId == cartItem.ProductId);
+                if (product != null)
+                {
+                    product.InStock -= cartItem.Quantity; // Subtract sold quantity
+                    _context.Products.Update(product);
+                }
+
+                // Remove the ProductColor record as the color is now sold
+                var productColor = _context.ProductColors
+                    .FirstOrDefault(pc => pc.ProductId == cartItem.ProductId && pc.ColorId == cartItem.ColorId);
+                if (productColor != null)
+                {
+                    _context.ProductColors.Remove(productColor); // Remove record from the ProductColor table
+                }
+
+                // Remove the ProductSize record as the size is now sold
+                var productSize = _context.ProductSizes
+                    .FirstOrDefault(pc => pc.ProductId == cartItem.ProductId && pc.SizeId== cartItem.SizeId);
+                if (productSize != null)
+                {
+                    _context.ProductSizes.Remove(productSize); // Remove record from the ProductColor table
+                }
+
+                _context.CartItems.Remove(cartItem);
+            }
+
+            // Save changes to the database
+            _context.SaveChanges();
+
+            // After the sale is processed, clear the cart
+            cart.IsActive = false;
+            cart.IsPaid = true;
+            cart.TotalAmount = 0;
+            _context.SaveChanges();
+
+            // Redirect to a confirmation page or order details page
+            return Json(new { saleId = sale.SaleId });
         }
+
 
 
 

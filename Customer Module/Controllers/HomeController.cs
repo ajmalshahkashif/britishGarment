@@ -38,6 +38,16 @@ namespace Customer_Module.Controllers
         }
 
 
+        [HttpPost]
+        public IActionResult SearchCategory(string query)
+        {
+            // Example: Mock data
+            // Fetch the CategoryId based on the label
+            var category = _context.ProductCategories
+                .Where(c => c.Name == query).ToList();
+
+            return Json(category);
+        }
 
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

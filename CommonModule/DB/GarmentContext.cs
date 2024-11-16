@@ -61,6 +61,7 @@ public partial class GarmentContext : DbContext
                 .HasDefaultValueSql("(getdate())")
                 .HasColumnType("datetime");
             entity.Property(e => e.IsActive).HasColumnName("isActive");
+            entity.Property(e => e.IsPaid).HasColumnName("isPaid");
             entity.Property(e => e.TotalAmount).HasColumnType("decimal(16, 2)");
             entity.Property(e => e.UpdatedAt)
                 .HasDefaultValueSql("(getdate())")
@@ -137,6 +138,7 @@ public partial class GarmentContext : DbContext
             entity.Property(e => e.Gender)
                 .HasMaxLength(100)
                 .IsUnicode(false);
+            entity.Property(e => e.LowStockQuantity).HasDefaultValue(2);
             entity.Property(e => e.Name).HasMaxLength(100);
             entity.Property(e => e.Price).HasColumnType("decimal(18, 2)");
             entity.Property(e => e.ShortDescription).HasMaxLength(1000);
@@ -263,6 +265,11 @@ public partial class GarmentContext : DbContext
             entity.Property(e => e.PaymentMethod).HasMaxLength(50);
             entity.Property(e => e.SaleDate).HasDefaultValueSql("(getdate())");
             entity.Property(e => e.TotalAmount).HasColumnType("decimal(18, 2)");
+
+            entity.HasOne(d => d.Customer).WithMany(p => p.Sales)
+                .HasForeignKey(d => d.CustomerId)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK_Sales_Users");
         });
 
         modelBuilder.Entity<SaleDetail>(entity =>

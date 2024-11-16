@@ -7,8 +7,8 @@
 
 
     <link href="~/css/bootstrap.min.css" rel="stylesheet" /> @* Bootstrap v3.3.5  *@
-    
-    
+
+
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <link href="~/css/components.css" rel="stylesheet" />
     <link href="~/css/style-shop.css" rel="stylesheet" />
@@ -17,6 +17,9 @@
     <link href="~/css/red.css" rel="stylesheet" />
     <link href="~/css/custom.css" rel="stylesheet" />
     <link href="~/css/custom-font-sizes.css" rel="stylesheet" />
+    <script src="~/js/jquery.min.js"></script>
+
+
 </head>
 
 
@@ -85,36 +88,118 @@
                                         <div class="col-md-4 header-navigation-col">
                                             <h4>Clothing</h4>
                                             <ul>
-                                                <li><a href="shop-product-list.html">Coat</a></li>
-                                                <li><a href="shop-product-list.html">Jackets</a></li>
-                                                <li><a href="shop-product-list.html">Trousers</a></li>
-                                                <li><a href="shop-product-list.html">Leatherwear</a></li>
-                                                <li><a href="shop-product-list.html">Sleepwear</a></li>
-                                                <li><a href="shop-product-list.html">Swimwear</a></li>
-                                                <li><a href="shop-product-list.html">Security uniform</a></li>
-                                                <li><a href="shop-product-list.html">Sports uniform</a></li>
+                                                
+                                                <li>
+                                                    <a href="@Url.Action("ProductListing", "ProductDetails", new { categoryLabel = "Coat" })">
+                                                       Coat
+                                                    </a>
+                                                </li>
+                                                <li>
+                                                    <a href="@Url.Action("ProductListing", "ProductDetails", new { categoryLabel = "Jackets" })">
+                                                       Jackets
+                                                    </a>
+                                                </li>
+                                                <li>
+                                                    <a href="@Url.Action("ProductListing", "ProductDetails", new { categoryLabel = "Trousers" })">
+                                                       Trousers
+                                                    </a>
+                                                </li>
+                                                <li>
+                                                    <a href="@Url.Action("ProductListing", "ProductDetails", new { categoryLabel = "Leatherwear" })">
+                                                       Leatherwear
+                                                    </a>
+                                                </li>
+                                                <li>
+                                                    <a href="@Url.Action("ProductListing", "ProductDetails", new { categoryLabel = "Sleepwear" })">
+                                                       Sleepwear
+                                                    </a>
+                                                </li>
+                                                <li>
+                                                    <a href="@Url.Action("ProductListing", "ProductDetails", new { categoryLabel = "Swimwear" })">
+                                                       Swimwear
+                                                    </a>
+                                                </li>
+                                                <li>
+                                                    <a href="@Url.Action("ProductListing", "ProductDetails", new { categoryLabel = "Security uniform" })">
+                                                       Security uniform
+                                                    </a>
+                                                </li>
+                                                <li>
+                                                    <a href="@Url.Action("ProductListing", "ProductDetails", new { categoryLabel = "Sports uniform" })">
+                                                       Sports uniform
+                                                    </a>
+                                                </li>
                                             </ul>
                                         </div>
                                         <div class="col-md-4 header-navigation-col">
                                             <h4>Accessories</h4>
                                             <ul>
-                                                <li><a href="shop-product-list.html">Cap</a></li>
-                                                <li><a href="shop-product-list.html">Boxers</a></li>
-                                                <li><a href="shop-product-list.html">Gloves</a></li>
-                                                <li><a href="shop-product-list.html">Belts</a></li>
-                                                <li><a href="shop-product-list.html">Ties</a></li>
-                                                <li><a href="shop-product-list.html">Bags</a></li>
+                                                <li>
+                                                    <a href="@Url.Action("ProductListing", "ProductDetails", new { categoryLabel = "Cap" })">
+                                                       Cap
+                                                    </a>
+                                                </li>
+                                                <li>
+                                                    <a href="@Url.Action("ProductListing", "ProductDetails", new { categoryLabel = "Boxers" })">
+                                                       Boxers
+                                                    </a>
+                                                </li>
+                                                <li>
+                                                    <a href="@Url.Action("ProductListing", "ProductDetails", new { categoryLabel = "Gloves" })">
+                                                       Gloves
+                                                    </a>
+                                                </li>
+                                                <li>
+                                                    <a href="@Url.Action("ProductListing", "ProductDetails", new { categoryLabel = "Belts" })">
+                                                       Belts
+                                                    </a>
+                                                </li>
+                                                <li>
+                                                    <a href="@Url.Action("ProductListing", "ProductDetails", new { categoryLabel = "Ties" })">
+                                                       Ties
+                                                    </a>
+                                                </li>
+                                                <li>
+                                                    <a href="@Url.Action("ProductListing", "ProductDetails", new { categoryLabel = "Bags" })">
+                                                       Bags
+                                                    </a>
+                                                </li>
                                             </ul>
                                         </div>
                                         <div class="col-md-4 header-navigation-col">
                                             <h4>Footwear</h4>
                                             <ul>
-                                                <li><a href="shop-product-list.html">Boats</a></li>
-                                                <li><a href="shop-product-list.html">Socks</a></li>
-                                                <li><a href="shop-product-list.html">Sports Shoes</a></li>
-                                                <li><a href="shop-product-list.html">Slippers</a></li>
-                                                <li><a href="shop-product-list.html">Casual Shoes</a></li>
-                                                <li><a href="shop-product-list.html">Formal Shoes</a></li>
+                                               
+                                                <li>
+                                                    <a href="@Url.Action("ProductListing", "ProductDetails", new { categoryLabel = "Boats" })">
+                                                       Boats
+                                                    </a>
+                                                </li>
+                                                <li>
+                                                    <a href="@Url.Action("ProductListing", "ProductDetails", new { categoryLabel = "Socks" })">
+                                                       Socks
+                                                    </a>
+                                                </li>
+                                                <li>
+                                                    <a href="@Url.Action("ProductListing", "ProductDetails", new { categoryLabel = "Sports Shoes" })">
+                                                       Sports Shoes
+                                                    </a>
+                                                </li>
+                                                <li>
+                                                    <a href="@Url.Action("ProductListing", "ProductDetails", new { categoryLabel = "Slippers" })">
+                                                       Slippers
+                                                    </a>
+                                                </li>
+                                                <li>
+                                                    <a href="@Url.Action("ProductListing", "ProductDetails", new { categoryLabel = "Casual Shoes" })">
+                                                       Casual Shoes
+                                                    </a>
+                                                </li>
+                                                <li>
+                                                    <a href="@Url.Action("ProductListing", "ProductDetails", new { categoryLabel = "Formal Shoes" })">
+                                                       Formal Shoes
+                                                    </a>
+                                                </li>
                                             </ul>
                                         </div>
                                     </div>
@@ -132,38 +217,131 @@
                                         <div class="col-md-4 header-navigation-col">
                                             <h4>Clothing</h4>
                                             <ul>
-                                                <li><a href="shop-product-list.html">Coat</a></li>
-                                                <li><a href="shop-product-list.html">Jackets</a></li>
-                                                <li><a href="shop-product-list.html">Trousers</a></li>
-                                                <li><a href="shop-product-list.html">Leatherwear</a></li>
-                                                <li><a href="shop-product-list.html">Sleepwear</a></li>
-                                                <li><a href="shop-product-list.html">Swimwear</a></li>
-                                                <li><a href="shop-product-list.html">Security uniform</a></li>
-                                                <li><a href="shop-product-list.html">Sports uniform</a></li>
+                                                <li>
+                                                    <a href="@Url.Action("ProductListing", "ProductDetails", new { categoryLabel = "Coat" })">
+                                                       Coat
+                                                    </a>
+                                                </li>
+                                                <li>
+                                                    <a href="@Url.Action("ProductListing", "ProductDetails", new { categoryLabel = "Jackets" })">
+                                                       Jackets
+                                                    </a>
+                                                </li>
+                                                <li>
+                                                    <a href="@Url.Action("ProductListing", "ProductDetails", new { categoryLabel = "Trousers" })">
+                                                       Trousers
+                                                    </a>
+                                                </li>
+                                                <li>
+                                                    <a href="@Url.Action("ProductListing", "ProductDetails", new { categoryLabel = "Leatherwear" })">
+                                                       Leatherwear
+                                                    </a>
+                                                </li>
+                                                <li>
+                                                    <a href="@Url.Action("ProductListing", "ProductDetails", new { categoryLabel = "Sleepwear" })">
+                                                       Sleepwear
+                                                    </a>
+                                                </li>
+                                                <li>
+                                                    <a href="@Url.Action("ProductListing", "ProductDetails", new { categoryLabel = "Swimwear" })">
+                                                       Swimwear
+                                                    </a>
+                                                </li>
+                                                <li>
+                                                    <a href="@Url.Action("ProductListing", "ProductDetails", new { categoryLabel = "Security uniform" })">
+                                                       Security uniform
+                                                    </a>
+                                                </li>
+                                                <li>
+                                                    <a href="@Url.Action("ProductListing", "ProductDetails", new { categoryLabel = "Sports uniform" })">
+                                                       Sports uniform
+                                                    </a>
+                                                </li>
                                             </ul>
                                         </div>
                                         <div class="col-md-4 header-navigation-col">
                                             <h4>Accessories</h4>
                                             <ul>
-                                                <li><a href="shop-product-list.html">Cap</a></li>
-                                                <li><a href="shop-product-list.html">Bra</a></li>
-                                                <li><a href="shop-product-list.html">Panty</a></li>
-                                                <li><a href="shop-product-list.html">Gloves</a></li>
-                                                <li><a href="shop-product-list.html">Bags</a></li>
-                                                <li><a href="shop-product-list.html">Belts</a></li>
-                                                <li><a href="shop-product-list.html">Ties</a></li>
+                                                <li>
+                                                    <a href="@Url.Action("ProductListing", "ProductDetails", new { categoryLabel = "Cap" })">
+                                                       Cap
+                                                    </a>
+                                                </li>
+                                                <li>
+                                                    <a href="@Url.Action("ProductListing", "ProductDetails", new { categoryLabel = "Bra" })">
+                                                       Bra
+                                                    </a>
+                                                </li>
+                                                <li>
+                                                    <a href="@Url.Action("ProductListing", "ProductDetails", new { categoryLabel = "Panty" })">
+                                                       Panty
+                                                    </a>
+                                                </li>
+                                                <li>
+                                                    <a href="@Url.Action("ProductListing", "ProductDetails", new { categoryLabel = "Gloves" })">
+                                                       Gloves
+                                                    </a>
+                                                </li>
+                                                <li>
+                                                    <a href="@Url.Action("ProductListing", "ProductDetails", new { categoryLabel = "Bags" })">
+                                                       Bags
+                                                    </a>
+                                                </li>
+                                                <li>
+                                                    <a href="@Url.Action("ProductListing", "ProductDetails", new { categoryLabel = "Belts" })">
+                                                       Belts
+                                                    </a>
+                                                </li>
+                                                <li>
+                                                    <a href="@Url.Action("ProductListing", "ProductDetails", new { categoryLabel = "Ties" })">
+                                                       Ties
+                                                    </a>
+                                                </li>
                                             </ul>
                                         </div>
                                         <div class="col-md-4 header-navigation-col">
                                             <h4>Footwear</h4>
                                             <ul>
-                                                <li><a href="shop-product-list.html">Boats</a></li>
-                                                <li><a href="shop-product-list.html">Socks</a></li>
-                                                <li><a href="shop-product-list.html">Sports Shoes</a></li>
-                                                <li><a href="shop-product-list.html">Slippers</a></li>
-                                                <li><a href="shop-product-list.html">Casual Shoes</a></li>
-                                                <li><a href="shop-product-list.html">Formal Shoes</a></li>
-                                                <li><a href="shop-product-list.html">Heels</a></li>
+                                                <li>
+                                                    <a href="@Url.Action("ProductListing", "ProductDetails", new { categoryLabel = "Boats" })">
+                                                       Boats
+                                                    </a>
+                                                </li>
+                                                <li>
+                                                    <a href="@Url.Action("ProductListing", "ProductDetails", new { categoryLabel = "Socks" })">
+                                                       Socks
+                                                    </a>
+                                                </li>
+                                                <li>
+                                                    <a href="@Url.Action("ProductListing", "ProductDetails", new { categoryLabel = "Sports Shoes" })">
+                                                       Sports Shoes
+                                                    </a>
+                                                </li>
+                                                <li>
+                                                    <a href="@Url.Action("ProductListing", "ProductDetails", new { categoryLabel = "Slippers" })">
+                                                       Slippers
+                                                    </a>
+                                                </li>
+                                                <li>
+                                                    <a href="@Url.Action("ProductListing", "ProductDetails", new { categoryLabel = "Casual Shoes" })">
+                                                       Casual Shoes
+                                                    </a>
+                                                </li>
+                                                <li>
+                                                    <a href="@Url.Action("ProductListing", "ProductDetails", new { categoryLabel = "Formal Shoes" })">
+                                                       Formal Shoes
+                                                    </a>
+                                                </li>
+                                                <li>
+                                                    <a href="@Url.Action("ProductListing", "ProductDetails", new { categoryLabel = "Heels" })">
+                                                       Heels
+                                                    </a>
+                                                </li>
+                                                <li>
+                                                    <a href="@Url.Action("ProductListing", "ProductDetails", new { categoryLabel = "Sandals" })">
+                                                       Sandals
+                                                    </a>
+                                                </li>
                                             </ul>
                                         </div>
                                     </div>
@@ -181,34 +359,106 @@
                                         <div class="col-md-4 header-navigation-col">
                                             <h4>Clothing</h4>
                                             <ul>
-                                                <li><a href="shop-product-list.html">Coat</a></li>
-                                                <li><a href="shop-product-list.html">Jackets</a></li>
-                                                <li><a href="shop-product-list.html">Trousers</a></li>
-                                                <li><a href="shop-product-list.html">Leatherwear</a></li>
-                                                <li><a href="shop-product-list.html">Sleepwear</a></li>
-                                                <li><a href="shop-product-list.html">Swimwear</a></li>
-                                                <li><a href="shop-product-list.html">Sports uniform</a></li>
+                                                <li>
+                                                    <a href="@Url.Action("ProductListing", "ProductDetails", new { categoryLabel = "Coat" })">
+                                                       Coat
+                                                    </a>
+                                                </li>
+                                                <li>
+                                                    <a href="@Url.Action("ProductListing", "ProductDetails", new { categoryLabel = "Jackets" })">
+                                                       Jackets
+                                                    </a>
+                                                </li>
+                                                <li>
+                                                    <a href="@Url.Action("ProductListing", "ProductDetails", new { categoryLabel = "Trousers" })">
+                                                       Trousers
+                                                    </a>
+                                                </li>
+                                                <li>
+                                                    <a href="@Url.Action("ProductListing", "ProductDetails", new { categoryLabel = "Leatherwear" })">
+                                                       Leatherwear
+                                                    </a>
+                                                </li>
+                                                <li>
+                                                    <a href="@Url.Action("ProductListing", "ProductDetails", new { categoryLabel = "Sleepwear" })">
+                                                       Sleepwear
+                                                    </a>
+                                                </li>
+                                                <li>
+                                                    <a href="@Url.Action("ProductListing", "ProductDetails", new { categoryLabel = "Swimwear" })">
+                                                       Swimwear
+                                                    </a>
+                                                </li>
+                                                <li>
+                                                    <a href="@Url.Action("ProductListing", "ProductDetails", new { categoryLabel = "Sports uniform" })">
+                                                       Sports uniform
+                                                    </a>
+                                                </li>
                                             </ul>
                                         </div>
                                         <div class="col-md-4 header-navigation-col">
                                             <h4>Accessories</h4>
                                             <ul>
-                                                <li><a href="shop-product-list.html">Cap</a></li>
-                                                <li><a href="shop-product-list.html">Gloves</a></li>
-                                                <li><a href="shop-product-list.html">Bags</a></li>
-                                                <li><a href="shop-product-list.html">Belts</a></li>
-                                                <li><a href="shop-product-list.html">Ties</a></li>
+                                                <li>
+                                                    <a href="@Url.Action("ProductListing", "ProductDetails", new { categoryLabel = "Cap" })">
+                                                       Cap
+                                                    </a>
+                                                </li>
+                                                <li>
+                                                    <a href="@Url.Action("ProductListing", "ProductDetails", new { categoryLabel = "Gloves" })">
+                                                       Gloves
+                                                    </a>
+                                                </li>
+                                                <li>
+                                                    <a href="@Url.Action("ProductListing", "ProductDetails", new { categoryLabel = "Bags" })">
+                                                       Bags
+                                                    </a>
+                                                </li>
+                                                <li>
+                                                    <a href="@Url.Action("ProductListing", "ProductDetails", new { categoryLabel = "Belts" })">
+                                                       Belts
+                                                    </a>
+                                                </li>
+                                                <li>
+                                                    <a href="@Url.Action("ProductListing", "ProductDetails", new { categoryLabel = "Ties" })">
+                                                       Ties
+                                                    </a>
+                                                </li>
                                             </ul>
                                         </div>
                                         <div class="col-md-4 header-navigation-col">
                                             <h4>Footwear</h4>
                                             <ul>
-                                                <li><a href="shop-product-list.html">Boats</a></li>
-                                                <li><a href="shop-product-list.html">Socks</a></li>
-                                                <li><a href="shop-product-list.html">Sports Shoes</a></li>
-                                                <li><a href="shop-product-list.html">Slippers</a></li>
-                                                <li><a href="shop-product-list.html">Casual Shoes</a></li>
-                                                <li><a href="shop-product-list.html">Formal Shoes</a></li>
+                                                <li>
+                                                    <a href="@Url.Action("ProductListing", "ProductDetails", new { categoryLabel = "Boats" })">
+                                                       Boats
+                                                    </a>
+                                                </li>
+                                                <li>
+                                                    <a href="@Url.Action("ProductListing", "ProductDetails", new { categoryLabel = "Socks" })">
+                                                       Socks
+                                                    </a>
+                                                </li>
+                                                <li>
+                                                    <a href="@Url.Action("ProductListing", "ProductDetails", new { categoryLabel = "Sports Shoes" })">
+                                                       Sports Shoes
+                                                    </a>
+                                                </li>
+                                                <li>
+                                                    <a href="@Url.Action("ProductListing", "ProductDetails", new { categoryLabel = "Slippers" })">
+                                                       Slippers
+                                                    </a>
+                                                </li>
+                                                <li>
+                                                    <a href="@Url.Action("ProductListing", "ProductDetails", new { categoryLabel = "Casual Shoes" })">
+                                                       Casual Shoes
+                                                    </a>
+                                                </li>
+                                                <li>
+                                                    <a href="@Url.Action("ProductListing", "ProductDetails", new { categoryLabel = "Formal Shoes" })">
+                                                       Formal Shoes
+                                                    </a>
+                                                </li>
                                             </ul>
                                         </div>
                                     </div>
@@ -224,8 +474,8 @@
 
                     <li class="dropdown dropdown-megamenu">
                         <div class="top-cart-block input-group">
-                            <input type="text" placeholder="Search Category" style="height:32px">
-                            <button class="btn btn-primary" type="submit">Search</button>
+                            <input type="text" name="query" class="form-control" placeholder="Search Category" style="height:32px;" />
+                            <button class="btn btn-primary" type="button" style="height:32px;">Search</button>
                         </div>
                     </li>
 
@@ -250,6 +500,34 @@
         </div>
     </footer>
 
+    <script>
+        $(document).ready(function () {
+            $("input[name='query']").on("keyup", function () {
+                let query = $(this).val();
+
+                if (query.length > 2) { // Start searching after 2 characters
+                    $.ajax({
+                        url: "/Home/SearchCategory",
+                        type: "POST",
+                        data: { query: query },
+                        success: function (data) {
+                            debugger;
+
+                            $(".header-navigation ul li:not(:last)").hide(); // Hide all categories
+                            data.forEach(category => {
+                                $(".header-navigation ul li:contains(" + category + ")").show(); // Show matched categories
+                            });
+                        },
+                        error: function () {
+                            console.error("Error fetching categories.");
+                        }
+                    });
+                } else {
+                    $(".header-navigation ul li").show(); // Show all if query is empty
+                }
+            });
+        });
+    </script>
 
 </body>
 

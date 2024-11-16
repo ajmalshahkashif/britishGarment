@@ -17,6 +17,8 @@ public partial class Cart
 
     public decimal TotalAmount { get; set; }
 
+    public bool IsPaid { get; set; }
+
     public virtual ICollection<CartItem> CartItems { get; set; } = new List<CartItem>();
 
     public virtual User User { get; set; } = null!;

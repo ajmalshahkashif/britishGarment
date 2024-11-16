@@ -10,6 +10,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Glide.js/3.4.1/css/glide.theme.css">
     <link href="~/css/styles.css" rel="stylesheet" />
     <link href="~/css/checkout.css" rel="stylesheet" />
+
     <title>ecommerce Website</title>
     <style>
         /* Style for the disabled button */
@@ -149,6 +150,8 @@
         </div>
     </header>
 
+    
+    <script src="~/js/jquery.min.js"></script>
 
     <script>
         // Function to toggle payment section visibility
@@ -227,10 +230,26 @@
 
             if (success) {
                 showSuccessMessage();
+
+                // Call the AddSaleEntry action result in Checkout controller
+                $.ajax({
+                    url: '/Checkout/AddSaleEntry', // URL to the AddSaleEntry action
+                    type: 'POST', // Request type
+                    success: function (data) {
+                        // Handle the response from the AddSaleEntry action if needed
+                        // Optionally, you can redirect the user to the confirmation page
+                        window.location.href = '/Home/Index';
+                    },
+                    error: function (xhr, status, error) {
+                        // Handle errors if any
+                        showErrorMessage();
+                    }
+                });
             } else {
                 showErrorMessage();
             }
         }
+
     </script>
 
 </body>
